@@ -1,0 +1,184 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@source "../src";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Rota Milagres design system — "Tropical marketplace".
+ * sand / coral / tide / ink / wood, mapped onto shadcn semantic tokens.
+ * All colors are oklch. Never hardcode colors in components.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-tide: var(--tide);
+  --color-tide-foreground: var(--tide-foreground);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-foreground: var(--whatsapp-foreground);
+  --color-star: var(--star);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --shadow-card: 0 1px 2px oklch(0.22 0.006 60 / 6%), 0 12px 28px -18px oklch(0.22 0.006 60 / 24%);
+  --shadow-float: 0 20px 50px -24px oklch(0.22 0.006 60 / 40%);
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.99 0.005 85);
+  --foreground: oklch(0.22 0.006 60);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.006 60);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.006 60);
+  --primary: oklch(0.69 0.16 38);
+  --primary-foreground: oklch(0.99 0.005 85);
+  --secondary: oklch(0.96 0.008 80);
+  --secondary-foreground: oklch(0.22 0.006 60);
+  --muted: oklch(0.96 0.008 80);
+  --muted-foreground: oklch(0.55 0.012 60);
+  --accent: oklch(0.95 0.02 200);
+  --accent-foreground: oklch(0.35 0.07 220);
+  --tide: oklch(0.61 0.11 220);
+  --tide-foreground: oklch(0.99 0.005 85);
+  --whatsapp: oklch(0.72 0.17 145);
+  --whatsapp-foreground: oklch(0.18 0.02 145);
+  --star: oklch(0.79 0.15 78);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.99 0.005 85);
+  --border: oklch(0.9 0.008 75);
+  --input: oklch(0.9 0.008 75);
+  --ring: oklch(0.69 0.16 38);
+}
+
+.dark {
+  --background: oklch(0.17 0.008 60);
+  --foreground: oklch(0.96 0.006 85);
+  --card: oklch(0.22 0.008 60);
+  --card-foreground: oklch(0.96 0.006 85);
+  --popover: oklch(0.22 0.008 60);
+  --popover-foreground: oklch(0.96 0.006 85);
+  --primary: oklch(0.72 0.16 38);
+  --primary-foreground: oklch(0.17 0.008 60);
+  --secondary: oklch(0.27 0.008 60);
+  --secondary-foreground: oklch(0.96 0.006 85);
+  --muted: oklch(0.27 0.008 60);
+  --muted-foreground: oklch(0.72 0.01 70);
+  --accent: oklch(0.3 0.03 215);
+  --accent-foreground: oklch(0.9 0.04 210);
+  --tide: oklch(0.68 0.1 215);
+  --tide-foreground: oklch(0.17 0.008 60);
+  --whatsapp: oklch(0.74 0.16 145);
+  --whatsapp-foreground: oklch(0.17 0.008 60);
+  --star: oklch(0.83 0.14 80);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.96 0.006 85);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.72 0.16 38);
+}
+
+.input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--background));
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.input:focus {
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 3px hsl(var(--primary) / .1);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+  }
+}
+/* Adicione ao seu CSS global */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.voucher-modal {
+  animation: slideUp 0.3s ease-out;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility hover-lift {
+  transition:
+    transform 0.35s var(--ease-out-soft),
+    box-shadow 0.35s var(--ease-out-soft);
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-float);
+  }
+}
+
+@utility zoom-media {
+  overflow: hidden;
+  & img {
+    transition: transform 0.5s var(--ease-out-soft);
+  }
+  &:hover img {
+    transform: scale(1.05);
+  }
+}

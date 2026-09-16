@@ -1,0 +1,471 @@
+
+ {
+  "categories": [
+    {
+      "id": "6ff87764-7b9e-4d2f-8aa0-f3c4d5c0171c",
+      "slug": "pousadas",
+      "name": "Pousadas",
+      "emoji": "🏨",
+      "imageUrl": "https://www.terramarway.com.br/wp-content/uploads/2021/09/Standard19.jpg"
+    },
+    {
+      "id": "cccccccc-cccc-cccc-cccc-cccccccccccc",
+      "slug": "restaurantes",
+      "name": "Restaurantes",
+      "emoji": "🍽️",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqgYAKXBy_-VFTysuDHa2r9WbRgU1PqlJ_FGCwteGG964Lo_VsqD-ph0w&s=10"
+    },
+    {
+      "id": "b3811d13-06ce-4cb8-8885-54b6eb1fb779",
+      "slug": "quadriciclo",
+      "name": "Quadriciclos",
+      "emoji": "🚤",
+      "imageUrl": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1920,fit=crop/ivrzOsMFTRcwJYFX/whatsapp-image-2026-02-24-at-11.34.48-uNEAOGD6kwd8i0TR.jpeg"
+    },
+    {
+      "id": "801b4280-0bf5-4200-a2f5-9d0ea1c42483",
+      "slug": "jangadas",
+      "name": "Jangadas",
+      "emoji": "⛵",
+      "imageUrl": "https://www.maladeaventuras.com/wp-content/uploads/2021/04/jangada-praia-do-patacho.jpeg"
+    },
+    {
+      "id": "bfd6cc11-5f7e-4ff2-bccb-648c0c6d9f88",
+      "slug": "buggy",
+      "name": "Buggy",
+      "emoji": "🚙",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzbOICcz8Z8GOqIcBTV5UjusVFgT7JYiABVO5x2PMr033jxBw8QZsl-fNt&s=10"
+    },
+    {
+      "id": "05414d10-2a74-4ea0-a14f-6cc6135b097f",
+      "slug": "pizzarias",
+      "name": "Pizzarias",
+      "emoji": "🍕",
+      "imageUrl": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "ba19aa12-8df9-4446-b930-5108ad9f58f5",
+      "slug": "comercios",
+      "name": "Comércios",
+      "emoji": "🏪",
+      "imageUrl": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80"
+    }
+  ],
+  "partners": [
+    {
+      "id": "4479d22f-30dd-4c99-9b39-60042edbcc91",
+      "slug": "pousada-do-enildo",
+      "name": "Pousada dos Enildo",
+      "city": "São Miguel dos Milagres",
+      "rating": 4.8,
+      "reviewCount": 127,
+      "short": "Conforto e vista para o mar em Milagres",
+      "description": "Pousada charmosa à alguns metro do mar. Quartos aconchegantes com ar-condicionado, Wi-Fi e café da manhã incluso.",
+      "priceFrom": 350,
+      "whatsapp": "5582991189998",
+      "phone": "(82) 99999-9999",
+      "address": "Porto da rua - São Miguel dos Milagres",
+      "latitude": -9.05,
+      "longitude": -35.23,
+      "images": [
+        "https://www.terramarway.com.br/wp-content/uploads/2021/09/Standard19.jpg",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/763963782.jpg?k=171a019842a04cdaf1c5fd940a621591530de219229c2e87902e2843d995d2f3&o=",
+        "https://images.trvl-media.com/lodging/17000000/16580000/16574000/16573988/42be2000.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill"
+      ],
+      "featured": true,
+      "category": {
+        "id": "6ff87764-7b9e-4d2f-8aa0-f3c4d5c0171c",
+        "name": "Pousadas",
+        "slug": "pousadas"
+      },
+      "hours_of_operation": "Check-in: 14:00 | Check-out: 12:00",
+      "instagram": "pousadadoscorais",
+      "website": "pousadadoenildo.vercel.app"
+    },
+    {
+      "id": "2",
+      "slug": "Restaurante-do-Enildo",
+      "name": "Restaurante do Enildo",
+      "city": "São Miguel dos Milagres",
+      "rating": 4.6,
+      "reviewCount": 89,
+      "short": "Culinária regional com frutos do mar frescos",
+      "description": "Especializado em frutos do mar frescos da região. Pratos típicos alagoanos com ingredientes selecionados.",
+      "priceFrom": 65,
+      "whatsapp": "5582991230020",
+      "phone": "(82) 99123-0020",
+      "address": "Porto da rua - São Miguel dos Milagres",
+      "latitude": -9.1,
+      "longitude": -35.3,
+      "images": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqgYAKXBy_-VFTysuDHa2r9WbRgU1PqlJ_FGCwteGG964Lo_VsqD-ph0w&s=10",
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/6c/36/62/caption.jpg?w=1100&h=1100&s=1"
+      ],
+      "featured": true,
+      "category": {
+        "id": "bfd6cc11-5f7e-4ff2-bccb-648c0c6d9f88",
+        "name": "Restaurantes",
+        "slug": "restaurantes"
+      },
+      "hours_of_operation": "(Exceto terça-feira) de 10:00 às 16:00",
+      "instagram": "@enildorestaurante",
+      "website": null
+    },
+    {
+      "id": "3",
+      "slug": "quadriciclo",
+      "name": "Quadriciclos",
+      "city": "São Miguel dos Milagres",
+      "rating": 4.9,
+      "reviewCount": 156,
+      "short": "Passeios de quadriciclo incrível pelos corais",
+      "description": "Passeios emocionantes de jangada e buggy pelas piscinas naturais e recifes de corais.",
+      "priceFrom": 80,
+      "whatsapp": "5582991189998",
+      "phone": "(82) 99118-9998",
+      "address": "Rua da Jangada, 789, São Miguel dos Milagres",
+      "latitude": -9.04,
+      "longitude": -35.24,
+      "images": [
+        "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1920,fit=crop/ivrzOsMFTRcwJYFX/whatsapp-image-2026-02-24-at-11.34.48-uNEAOGD6kwd8i0TR.jpeg",
+        "https://SEU-PROJETO.supabase.co/storage/v1/object/public/marketplace/partners/passeios-milagres/02.jpg"
+      ],
+      "featured": true,
+      "category": {
+        "id": "b3811d13-06ce-4cb8-8885-54b6eb1fb779",
+        "name": "Quadriciclos",
+        "slug": "quadriciclo"
+      },
+      "hours_of_operation": "08:00 - 17:00",
+      "instagram": "passeiosmilagres",
+      "website": null
+    },
+    {
+      "id": "286c05a3-e096-4ea7-aa36-3956eb18ec75",
+      "slug": "pousada-paraiso-dos-milagres",
+      "name": "Pousada Paraíso dos Milagres",
+      "city": "São Miguel dos Milagres",
+      "rating": 4.7,
+      "reviewCount": 94,
+      "short": "Quartos rústicos com vista para o mar",
+      "description": "Quartos rústicos, proxímo ao mar, rodeados pela natureza.",
+      "priceFrom": 280,
+      "whatsapp": "5582966666666",
+      "phone": "(82) 66666-6666",
+      "address": "Povoado Riacho, 321, São Miguel dos Milagres",
+      "latitude": -9.06,
+      "longitude": -35.26,
+      "images": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQghTBgM92VsmKjkHplGSvUZqeTnHMoMia8rnTc28E-CPVlhvhX-pIvKJy6&s=10",
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/eb/ce/61/pousada-paraiso-dos-milagres.jpg?w=1200&h=1200&s=1",
+        "https://pousada-paraso-dos-milagres.hoteis-noreste-de-brasil.com/data/Images/OriginalPhoto/15001/1500121/1500121903/image-sao-miguel-dos-milagres-pousada-paraiso-dos-milagres-7.JPEG"
+      ],
+      "featured": false,
+      "category": {
+        "id": "6ff87764-7b9e-4d2f-8aa0-f3c4d5c0171c",
+        "name": "Pousadas",
+        "slug": "pousadas"
+      },
+      "hours_of_operation": "Check-in: 15:00 | Check-out: 11:00",
+      "instagram": "pousadaparaiso",
+      "website": null
+    },
+    {
+      "id": "5",
+      "slug": "buggy-magnata-dael",
+      "name": "Buggy Magnata - Dael",
+      "city": "São Miguel dos Milagres",
+      "rating": 4.5,
+      "reviewCount": 78,
+      "short": "Passeios emocionantes pelas dunas e praias",
+      "description": "Passeios emocionantes de buggy pelas dunas e praias da região.",
+      "priceFrom": 50,
+      "whatsapp": "5582991189998",
+      "phone": "(82) 55555-5555",
+      "address": "Centro, s/n, São MIguel dos Milagres",
+      "latitude": -9.11,
+      "longitude": -35.31,
+      "images": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRszkJ6FbfKRfHwpUr1q1UGiZis-RG9TKN0S6P2hNhvj5cuKRRakMIHJVG9&s=10"
+      ],
+      "featured": false,
+      "category": {
+        "id": "bfd6cc11-5f7e-4ff2-bccb-648c0c6d9f88",
+        "name": "Buggy",
+        "slug": "buggy"
+      },
+      "hours_of_operation": "09:00 - 18:00",
+      "instagram": "buggyaventura",
+      "website": null
+    },
+    {
+      "id": "6",
+      "slug": "restaurante-cantinho-nordestino",
+      "name": "Restaurante Cantinho nordestino",
+      "city": "Passo de Camaragibe",
+      "rating": 4.3,
+      "reviewCount": 56,
+      "short": "Comida caseira com ingredientes locais",
+      "description": "Comida caseira com ingredientes locais, em um ambiente aconchegante.",
+      "priceFrom": 35,
+      "whatsapp": "5582991490665",
+      "phone": "(82) 99149-0665",
+      "address": "Povoado Tatuamunha, Porto de pedras",
+      "latitude": -9.218402451714576, 
+      "longitude": -35.33767020112104,
+      "images": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ5-1En0AS54aGY5KjMLiQjIp1eUQA3JZ4qPo6ePwEag&s=10",
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/29/6e/24/09/caption.jpg?w=1200&h=1200&s=1",
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2f/a2/b5/47/caption.jpg?w=1200&h=1200&s=1"
+      ],
+      "featured": false,
+      "category": {
+        "id": "cccccccc-cccc-cccc-cccc-cccccccccccc",
+        "name": "Restaurantes",
+        "slug": "restaurantes"
+      },
+      "hours_of_operation": "Seg-Dom: 10:00 - 22:00",
+      "instagram": "penareia",
+      "website": null
+    },
+    
+    {
+      "id": "7",
+      "slug": "pizzarias",
+      "name": "Pizzaria Arretada",
+      "city": "São Miguel dos Milagres",
+      "rating": 4.4,  
+    "reviewCount": 34,
+      "short": "Pizzas artesanais com ingredientes frescos",
+      "description": "Pizzas artesanais com ingredientes frescos e massas feitas na hora. Ambiente acolhedor e familiar.",
+      "priceFrom": 45,  
+      "whatsapp": "5582996635846",
+      "phone": "(82) 99663-5846", 
+      "address": "Porto da rua - São Miguel dos Milagres",
+      "latitude": -9.05,
+      "longitude": -35.23,
+      "images": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0yPV9WY234TkSDr-r6FGOxNH8ZbzkAC_HiBjWQfLnBQ&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAdVPMoefF6AGqC-RPTo_vMKG5g-POHH6hGOm9PSQ1pQ&s",
+        "https://pizzariaarretada.deeliv.app/uploads/modules/itens/865875_foto_mini.jpeg?cfc=20260907120000"
+      ],
+      "featured": false,  
+    "category": {
+        "id": "05414d10-2a74-4ea0-a14f-6cc6135b097f",
+        "name": "Pizzarias",
+        "slug": "pizzarias"
+      },  
+    "hours_of_operation": "Seg-Dom: 18:00 - 23:00",
+      "instagram": "pizzariaarretada",
+      "website": null
+    
+
+    },
+    {
+      "id":"8",
+      "slug": "pedacinho-da-italia",
+      "name": "Pedacinho da Itália",
+      "city": "São Miguel dos Milagres",  
+    "rating": 4.5,
+      "reviewCount": 45,
+      "short": "Culinária italiana com massas artesanais",
+      "description": "Restaurante italiano com massas artesanais, pizzas e pratos típicos da Itália. Ambiente acolhedor e familiar.",
+      "priceFrom": 60,
+      "whatsapp": "5582991189998",
+      "phone": "(82) 99118-9998",
+      "address": "Porto da rua - São Miguel dos Milagres",
+      "latitude": -9.05,
+      "longitude": -35.23,
+      "images": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6gQ1CCcNrHzxDDf-nWtA8Vsm9Vi2jg8FNrdm4TEvcdnkAOTxZSPfTkUc0&s=10",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvz7s-_w5fO5Cb7xOUU6l6TKpRbkUh2qvoP2tmS2lqbQ&s"
+        
+      ],
+      "featured": false,
+      "category": {
+        "id": "6",
+        "name": "Pizzarias",
+        "slug": "pizzarias"
+      }
+    },
+    {
+      "id":"9",
+      "slug":"comercios",
+      "name":"BL - Farma", 
+      "city":"São Miguel dos Milagres",
+      "rating":4.2,
+      "reviewCount": 23,
+      "short":"Farmácia ",
+      "description":"Variedades em remédios, produtos de saúde e beleza.",
+      "priceFrom": null,
+      "whatsapp":"5582996167038",
+      "phone":"(82) 99118-9998",  
+    "address":"Rua do Comércio, 123, São Miguel dos Milagres",
+      "latitude": -9.208615008954807,
+      "longitude": -35.328919444356146,
+      "images":[
+        "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm59iaPnkkN0KlBqh7ArLlhkhqmLJekdhsVgsV2W-jD6g3p1rBrGhyTqjQVIKRo2fKum-0zWwBhJTxcYsWxvG6_L-GmcLchUlRPFFG6adcoy_YseHxPFwWnSpcHJXK3CymL7wnZ=s1360-w1360-h1020-rw",
+        "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmLY4XGePc-gZSiqbVStXrsUUmbPbFvV9k_jsrELpfqFeUyvByo4n_TZKDkK5VEWxZWf7xOEI6UAcyx6Qya4pxj4N8vZ2HSwOJ-ma0WcZX368bMr58z5oI8561jE2-SITycpmWb=s1360-w1360-h1020-rw"
+        
+      ],
+      "featured": false,
+      "category": {
+        "id": "ba19aa12-8df9-4446-b930-5108ad9f58f5",
+        "name": "Comércios",
+        "slug": "comercios"
+      }
+    },
+   {
+  "id": "10",
+  "slug": "jangada",
+  "name": "Passeios de Jangada",
+  "city": "São Miguel dos Milagres",
+  "rating": 4.9,
+  "reviewCount": 203,
+  "short": "Passeio clássico pelas piscinas naturais",
+  "description": "Saídas diárias para as piscinas naturais. Um passeio inesquecível pelas águas cristalinas de São Miguel dos Milagres.",
+  "priceFrom": 100,
+  "whatsapp": "5582991189998",
+  "phone": "(82) 99118-9998",
+  "address": "Praia de São Miguel dos Milagres",
+  "latitude": -9.045,
+  "longitude": -35.235,
+
+  "images": [
+    "https://passeiosemmilagres.com.br/wp-content/uploads/2025/01/DJI_0364-scaled.jpg",
+    "https://SEU-PROJETO.supabase.co/storage/v1/object/public/marketplace/passeios/jangadas/02.jpg",
+    "https://SEU-PROJETO.supabase.co/storage/v1/object/public/marketplace/passeios/jangadas/03.jpg",
+    "https://SEU-PROJETO.supabase.co/storage/v1/object/public/marketplace/passeios/jangadas/04.jpg"
+  ],
+
+  "videoUrl": "https://youtu.be/FLpCOXdH7O4?si=3hOi9Jh5oc67Sts1",
+
+  "featured": true,
+
+  "schedules": [
+    "Saídas conforme a maré",
+    "Duração aproximada: 3h30 a 4h",
+    "Passeio pelas piscinas naturais"
+  ],
+
+  "tourDescription": {
+    "title": "Viva as piscinas naturais de São Miguel dos Milagres",
+    "text": "Embarque em uma tradicional jangada e conheça as piscinas naturais de São Miguel dos Milagres. Durante o passeio você poderá aproveitar as águas cristalinas, observar os peixes e curtir uma das experiências mais especiais da região."
+  },
+
+  
+
+  "packages": [
+    {
+      "id": "jangada-1",
+      "name": "1 pessoa",
+      "people": 1,
+      "price": 100
+    },
+    {
+      "id": "jangada-2",
+      "name": "2 pessoas",
+      "people": 2,
+      "price": 190
+    },
+    {
+      "id": "jangada-3",
+      "name": "3 pessoas",
+      "people": 3,
+      "price": 290
+    },
+    {
+      "id": "jangada-4",
+      "name": "4 pessoas",
+      "people": 4,
+      "price": 380
+    },
+    {
+      "id": "jangada-5",
+      "name": "5 pessoas",
+      "people": 5,
+      "price": 480
+    },
+    {
+      "id": "jangada-6",
+      "name": "6 pessoas",
+      "people": 6,
+      "price": 550
+    },
+    {
+      "id": "jangada-7",
+      "name": "7 pessoas",
+      "people": 7,
+      "price": 650
+    },
+    {
+      "id": "jangada-8",
+      "name": "8 pessoas",
+      "people": 8,
+      "price": 745
+    },
+    {
+      "id": "jangada-9",
+      "name": "9 pessoas",
+      "people": 9,
+      "price": 850
+    },
+    {
+      "id": "jangada-10",
+      "name": "10 pessoas",
+      "people": 10,
+      "price": 900
+    },
+    {
+      "id": "jangada-11",
+      "name": "11 pessoas",
+      "people": 11,
+      "price": 1000
+    },
+    {
+      "id": "jangada-12",
+      "name": "12 pessoas",
+      "people": 12,
+      "price": 1100
+    }
+  ],
+
+  "category": {
+    "id": "4",
+    "name": "Jangadas",
+    "slug": "jangadas"
+  },
+
+  "hours_of_operation": "08:00 - 17:00",
+  "instagram": "jangadadoze",
+  "website": null
+}
+    
+  ],
+  "promos": [
+    {
+      "id": "1",
+      "title": "Pacote Verão Milagres",
+      "detail": "Passeio de jangada + Almoço incluso no Restaurante da Lita",
+      "badge": "🔥 Oferta da Rota Milagres",
+      "imageUrl": "https://nnfvibpkmcnfotndsvmp.supabase.co/storage/v1/object/public/partner-images/partners/e2a9b3a1-1234-4a2b-9876-0123456789ab/ChatGPT%20Image%2013%20de%20set.%20de%202026,%2011_41_59.png",
+      "partnerSlug": "pousada-dos-corais"
+    },
+    {
+      "id": "2",
+      "title": "Passeio de Buggy + Jangada",
+      "detail": "Roteiro completo com almoço incluso",
+      "badge": "⭐ Experiência Completa",
+      "imageUrl": "https://SEU-PROJETO.supabase.co/storage/v1/object/public/marketplace/promos/buggy-jangada.jpg",
+      "partnerSlug": "passeios-milagres"
+    },
+    {
+      "id": "3",
+      "title": "Menu Degustação",
+      "detail": "5 pratos com frutos do mar frescos da região",
+      "badge": "🍽️ Especial do Chef",
+      "imageUrl": "https://SEU-PROJETO.supabase.co/storage/v1/object/public/marketplace/promos/menu-degustacao.jpg",
+      "partnerSlug": "restaurante-sabor-mar"
+    }
+  ]
+}

@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Analytics — Rota Milagres</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+  :root{
+    --bg:#0b1220;
+    --card:#111a2e;
+    --muted:#6b7a94;
+    --text:#e6ecf5;
+    --line:#1e2a44;
+    --primary:#3ba7ff;
+    --ok:#22c55e;
+    --warn:#f59e0b;
+    --danger:#ef4444;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,sans-serif}
+  a{color:var(--primary)}
+  button{font:inherit}
+  .hidden{display:none !important}
+
+  /* Login */
+  .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .login-card{width:100%;max-width:400px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px}
+  .login-card h1{margin:0 0 6px 0;font-size:22px}
+  .login-card p{margin:0 0 20px 0;color:var(--muted);font-size:14px}
+  .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+  .field label{font-size:13px;color:var(--muted)}
+  .field input{background:#0a0f1c;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:11px 12px;outline:none;font-size:14px}
+  .field input:focus{border-color:var(--primary)}
+  .btn{background:var(--primary);color:#001321;border:0;border-radius:10px;padding:12px 14px;font-weight:600;cursor:pointer;width:100%}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .err{color:var(--danger);font-size:13px;margin-top:8px;min-height:18px}
+
+  /* Dashboard */
+  .container{max-width:1240px;margin:0 auto;padding:24px}
+  header.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}
+  header.top h1{margin:0;font-size:22px}
+  header.top .sub{color:var(--muted);font-size:13px;margin-top:4px}
+  .actions{display:flex;gap:10px;align-items:center}
+  .ghost{background:transparent;border:1px solid var(--line);color:var(--text);padding:9px 14px;border-radius:10px;cursor:pointer}
+  .ghost:hover{border-color:var(--primary)}
+  .select{background:#0a0f1c;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 12px;font-size:14px}
+
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+  @media (max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:520px){.kpis{grid-template-columns:1fr}}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .kpi .label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+  .kpi .value{font-size:28px;font-weight:700;margin-top:8px}
+  .kpi .hint{color:var(--muted);font-size:12px;margin-top:6px}
+
+  .grid{display:grid;gap:20px}
+  .grid.cols-2{grid-template-columns:2fr 1fr}
+  @media (max-width:960px){.grid.cols-2{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h2{margin:0 0 14px 0;font-size:15px;font-weight:600}
+  .card .sub{color:var(--muted);font-size:12px;margin-bottom:14px}
+
+  .chart-box{height:280px;position:relative}
+  .chart-box canvas{width:100% !important;height:100% !important}
+
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  thead th{text-align:left;color:var(--muted);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.05em;padding:8px 6px;border-bottom:1px solid var(--line)}
+  tbody td{padding:10px 6px;border-bottom:1px solid var(--line)}
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr:hover{background:#0f1830}
+  .rank{color:var(--muted);font-variant-numeric:tabular-nums;width:32px}
+  .num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+  .badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600;background:rgba(59,167,255,.15);color:var(--primary)}
+
+  .loading{display:flex;align-items:center;justify-content:center;padding:60px 0;color:var(--muted);gap:10px}
+  .spinner{width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .empty{text-align:center;padding:40px 0;color:var(--muted);font-size:14px}
+
+  .footer{margin-top:32px;color:var(--muted);font-size:12px;text-align:center}
+</style>
+</head>
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div id="login" class="login-wrap">
+  <form id="loginForm" class="login-card" autocomplete="on">
+    <h1>Analytics — Rota Milagres</h1>
+    <p>Acesso restrito à administração.</p>
+
+    <div class="field">
+      <label for="email">E-mail</label>
+      <input id="email" type="email" required placeholder="admin@exemplo.com" autocomplete="email" />
+    </div>
+
+    <div class="field">
+      <label for="password">Senha</label>
+      <input id="password" type="password" required placeholder="••••••••" autocomplete="current-password" />
+    </div>
+
+    <button id="loginBtn" class="btn" type="submit">Entrar</button>
+    <div id="loginError" class="err"></div>
+  </form>
+</div>
+
+<!-- ================= DASHBOARD ================= -->
+<div id="dashboard" class="container hidden">
+  <header class="top">
+    <div>
+      <h1>Analytics — Rota Milagres</h1>
+      <div class="sub" id="userEmail">—</div>
+    </div>
+    <div class="actions">
+      <select id="rangeSelect" class="select">
+        <option value="7">Últimos 7 dias</option>
+        <option value="30" selected>Últimos 30 dias</option>
+        <option value="90">Últimos 90 dias</option>
+        <option value="365">Último ano</option>
+      </select>
+      <button class="ghost" id="refreshBtn">Atualizar</button>
+      <button class="ghost" id="logoutBtn">Sair</button>
+    </div>
+  </header>
+
+  <div id="dashError" class="err" style="margin-bottom:16px"></div>
+
+  <!-- KPIs -->
+  <section class="kpis">
+    <div class="kpi"><div class="label">Hoje</div><div class="value" id="kpiToday">—</div><div class="hint">visitas únicas</div></div>
+    <div class="kpi"><div class="label">Últimos 7 dias</div><div class="value" id="kpiWeek">—</div><div class="hint">visitas únicas</div></div>
+    <div class="kpi"><div class="label">Período</div><div class="value" id="kpiPeriod">—</div><div class="hint" id="kpiPeriodHint">—</div></div>
+    <div class="kpi"><div class="label">Parceiros com visitas</div><div class="value" id="kpiPartners">—</div><div class="hint">no período selecionado</div></div>
+  </section>
+
+  <!-- Chart + Ranking -->
+  <section class="grid cols-2">
+    <div class="card">
+      <h2>Visitas por dia</h2>
+      <div class="sub" id="chartSub">—</div>
+      <div class="chart-box"><canvas id="dailyChart"></canvas></div>
+    </div>
+
+    <div class="card">
+      <h2>Top parceiros</h2>
+      <div class="sub">Ranking por visitas únicas</div>
+      <div id="rankingBox">
+        <div class="loading"><div class="spinner"></div>Carregando…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tabela detalhada -->
+  <section class="card" style="margin-top:20px">
+    <h2>Parceiros — detalhamento</h2>
+    <div class="sub">Visitantes únicos, total de eventos e último acesso</div>
+    <div id="tableBox" style="margin-top:8px"></div>
+  </section>
+
+  <div class="footer">Rota Milagres · dados atualizados em tempo real a partir do Supabase</div>
+</div>
+
+<script>
+/* =====================================================================
+   1) CONFIGURAÇÃO — altere apenas estas duas linhas
+   ===================================================================== */
+const SUPABASE_URL      = "https://nnfvibpkmcnfotndsvmp.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5uZnZpYnBrbWNuZm90bmRzdm1wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwNjQxODcsImV4cCI6MjEwMTY0MDE4N30.eZtZbb9Pas3dru-9Erge9uwRywRIAMIv1avSg77Viok";
+
+/* =====================================================================
+   2) Cliente Supabase
+   ===================================================================== */
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/* =====================================================================
+   3) Helpers
+   ===================================================================== */
+const $ = (id) => document.getElementById(id);
+
+function show(id){ $(id).classList.remove("hidden"); }
+function hide(id){ $(id).classList.add("hidden"); }
+
+function fmtDate(iso){
+  const d = new Date(iso);
+  return d.toLocaleDateString("pt-BR", { day:"2-digit", month:"2-digit" });
+}
+function fmtDateTime(iso){
+  const d = new Date(iso);
+  return d.toLocaleString("pt-BR", { day:"2-digit", month:"2-digit", hour:"2-digit", minute:"2-digit" });
+}
+function isoDate(d){ return d.toISOString().slice(0,10); }
+function daysAgo(n){
+  const d = new Date();
+  d.setDate(d.getDate() - n);
+  d.setHours(0,0,0,0);
+  return d;
+}
+function safePartnerName(row){
+  const p = row.partners;
+  if (Array.isArray(p)) return p[0]?.name ?? "—";
+  return p?.name ?? "—";
+}
+
+/* =====================================================================
+   4) LOGIN
+   ===================================================================== */
+let currentSession = null;
+let dailyChart = null;
+
+$("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const btn = $("loginBtn");
+  const err = $("loginError");
+  err.textContent = "";
+  btn.disabled = true;
+  btn.textContent = "Entrando…";
+
+  const email = $("email").value.trim();
+  const password = $("password").value;
+
+  const { data, error } = await sb.auth.signInWithPassword({ email, password });
+
+  btn.disabled = false;
+  btn.textContent = "Entrar";
+
+  if (error) {
+    err.textContent = error.message || "Credenciais inválidas.";
+    return;
+  }
+
+  currentSession = data.session;
+  await enterDashboard();
+});
+
+async function enterDashboard(){
+  const user = currentSession?.user;
+  $("userEmail").textContent = user?.email ?? "—";
+  hide("login");
+  show("dashboard");
+  await loadAll();
+}
+
+$("logoutBtn").addEventListener("click", async () => {
+  await sb.auth.signOut();
+  currentSession = null;
+  hide("dashboard");
+  show("login");
+  $("password").value = "";
+});
+
+/* Sessão persistida */
+(async () => {
+  const { data } = await sb.auth.getSession();
+  if (data?.session) {
+    currentSession = data.session;
+    await enterDashboard();
+  }
+})();
+
+/* =====================================================================
+   5) CARREGAR DADOS
+   ===================================================================== */
+$("refreshBtn").addEventListener("click", loadAll);
+$("rangeSelect").addEventListener("change", loadAll);
+
+async function loadAll(){
+  const errBox = $("dashError");
+  errBox.textContent = "";
+  const days = Number($("rangeSelect").value);
+  const since = daysAgo(days).toISOString();
+
+  try {
+    /* ---------- Busca visitas do período ---------- */
+    const { data: views, error } = await sb
+      .from("analytics_views")
+      .select(`
+        id,
+        partner_id,
+        visitor_hash,
+        created_at,
+        partners ( id, name, slug )
+      `)
+      .gte("created_at", since)
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+
+    const rows = views ?? [];
+
+    /* ---------- KPIs ---------- */
+    const todayIso = isoDate(new Date());
+    const weekIso  = isoDate(daysAgo(7));
+    const periodIso = isoDate(daysAgo(days));
+
+    const sumFrom = (fromIso) =>
+      rows.filter(r => r.created_at.slice(0,10) >= fromIso).length;
+
+    $("kpiToday").textContent   = sumFrom(todayIso);
+    $("kpiWeek").textContent    = sumFrom(weekIso);
+    $("kpiPeriod").textContent  = rows.length;
+    $("kpiPeriodHint").textContent = `últimos ${days} dias`;
+
+    /* ---------- Agregação por dia ---------- */
+    const byDay = {};
+    for (const r of rows){
+      const day = r.created_at.slice(0,10);
+      byDay[day] = (byDay[day] ?? 0) + 1;
+    }
+
+    // preenche dias sem visita com 0
+    const daily = [];
+    for (let i = days - 1; i >= 0; i--){
+      const d = daysAgo(i);
+      const key = isoDate(d);
+      daily.push({ day: key, total: byDay[key] ?? 0 });
+    }
+
+    renderChart(daily);
+
+    /* ---------- Agregação por parceiro ---------- */
+    const byPartner = {};
+    for (const r of rows){
+      const pid = r.partner_id;
+      if (!pid) continue;
+      if (!byPartner[pid]){
+        byPartner[pid] = {
+          id: pid,
+          name: safePartnerName(r),
+          total: 0,
+          uniques: new Set(),
+          last: r.created_at,
+        };
+      }
+      byPartner[pid].total += 1;
+      if (r.visitor_hash) byPartner[pid].uniques.add(r.visitor_hash);
+      if (r.created_at > byPartner[pid].last) byPartner[pid].last = r.created_at;
+    }
+
+    const partnerList = Object.values(byPartner)
+      .map(p => ({
+        id: p.id,
+        name: p.name,
+        total: p.total,
+        uniques: p.uniques.size || p.total, // fallback caso hash seja nulo
+        last: p.last,
+      }))
+      .sort((a, b) => b.uniques - a.uniques);
+
+    $("kpiPartners").textContent = partnerList.length;
+
+    renderRanking(partnerList);
+    renderTable(partnerList);
+
+    // subtítulo do gráfico
+    $("chartSub").textContent = `${daily.length} dias · pico ${Math.max(...daily.map(d => d.total), 0)} visitas`;
+
+  } catch (e){
+    errBox.textContent = "Erro ao carregar dados: " + (e.message ?? e);
+    $("rankingBox").innerHTML = `<div class="empty">Não foi possível carregar.</div>`;
+    $("tableBox").innerHTML   = `<div class="empty">Não foi possível carregar.</div>`;
+  }
+}
+
+/* =====================================================================
+   6) RENDER — Chart
+   ===================================================================== */
+function renderChart(daily){
+  const ctx = $("dailyChart").getContext("2d");
+  const labels = daily.map(d => fmtDate(d.day + "T12:00:00"));
+  const data   = daily.map(d => d.total);
+
+  if (dailyChart) dailyChart.destroy();
+
+  dailyChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "Visitas",
+        data,
+        borderColor: "#3ba7ff",
+        backgroundColor: "rgba(59,167,255,.15)",
+        fill: true,
+        tension: .35,
+        pointRadius: 2,
+        pointHoverRadius: 5,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: "#111a2e",
+          borderColor: "#1e2a44",
+          borderWidth: 1,
+          titleColor: "#e6ecf5",
+          bodyColor: "#e6ecf5",
+        },
+      },
+      scales: {
+        x: {
+          grid: { color: "rgba(255,255,255,.04)" },
+          ticks: { color: "#6b7a94", maxRotation: 0, autoSkip: true, maxTicksLimit: 12 },
+        },
+        y: {
+          beginAtZero: true,
+          grid: { color: "rgba(255,255,255,.04)" },
+          ticks: { color: "#6b7a94", precision: 0 },
+        },
+      },
+    },
+  });
+}
+
+/* =====================================================================
+   7) RENDER — Ranking
+   ===================================================================== */
+function renderRanking(list){
+  const box = $("rankingBox");
+  if (list.length === 0){
+    box.innerHTML = `<div class="empty">Sem visitas no período.</div>`;
+    return;
+  }
+
+  const top = list.slice(0, 10);
+  box.innerHTML = `
+    <ol style="list-style:none;padding:0;margin:0">
+      ${top.map((p, i) => `
+        <li style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)">
+          <span style="display:flex;min-width:0;align-items:center;gap:10px">
+            <span class="rank">${i + 1}.</span>
+            <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escapeHtml(p.name)}</span>
+          </span>
+          <span class="num">${p.uniques}</span>
+        </li>
+      `).join("")}
+    </ol>
+  `;
+}
+
+/* =====================================================================
+   8) RENDER — Tabela detalhada
+   ===================================================================== */
+function renderTable(list){
+  const box = $("tableBox");
+  if (list.length === 0){
+    box.innerHTML = `<div class="empty">Sem dados no período.</div>`;
+    return;
+  }
+
+  box.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th style="width:48px">#</th>
+          <th>Parceiro</th>
+          <th class="num">Visitantes únicos</th>
+          <th class="num">Eventos totais</th>
+          <th class="num">Último acesso</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${list.map((p, i) => `
+          <tr>
+            <td class="rank">${i + 1}</td>
+            <td>${escapeHtml(p.name)}</td>
+            <td class="num">${p.uniques}</td>
+            <td class="num">${p.total}</td>
+            <td class="num" style="color:var(--muted);font-weight:400">${fmtDateTime(p.last)}</td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+/* =====================================================================
+   9) Utilitário
+   ===================================================================== */
+function escapeHtml(str){
+  return String(str ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+</script>
+</body>
+</html>
