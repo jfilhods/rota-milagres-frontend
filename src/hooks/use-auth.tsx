@@ -152,20 +152,20 @@ function useAuthProvider(): AuthContextType {
         const apiUser =
           response.data.user;
 
-        console.log(
-          "AUTH PROFILE:",
-          apiUser,
-        );
+        // console.log(
+        //   "AUTH PROFILE:",
+        //   apiUser,
+        // );
 
-        console.log(
-          "AUTH ROLE:",
-          apiUser.role,
-        );
+        // console.log(
+        //   "AUTH ROLE:",
+        //   apiUser.role,
+        // );
 
-        console.log(
-          "AUTH PARTNER_ID:",
-          apiUser.partner_id,
-        );
+        // console.log(
+        //   "AUTH PARTNER_ID:",
+        //   apiUser.partner_id,
+        // );
 
         // ======================================================
         // ADMIN
@@ -285,20 +285,20 @@ function useAuthProvider(): AuthContextType {
           password,
         );
 
-      console.log(
-        "LOGIN RESPONSE:",
-        response,
-      );
+      // console.log(
+      //   "LOGIN RESPONSE:",
+      //   response,
+      // );
 
-      console.log(
-        "LOGIN ROLE:",
-        response.user.role,
-      );
+      // console.log(
+      //   "LOGIN ROLE:",
+      //   response.user.role,
+      // );
 
-      console.log(
-        "LOGIN PARTNER_ID:",
-        response.user.partner_id,
-      );
+      // console.log(
+      //   "LOGIN PARTNER_ID:",
+      //   response.user.partner_id,
+      // );
 
       // ======================================================
       // SALVA TOKEN ADMIN / PARTNER
@@ -356,10 +356,10 @@ function useAuthProvider(): AuthContextType {
           "Usuário",
       };
 
-      console.log(
-        "AUTHENTICATED USER:",
-        authenticatedUser,
-      );
+      // console.log(
+      //   "AUTHENTICATED USER:",
+      //   authenticatedUser,
+      // );
 
       setUser(authenticatedUser);
 

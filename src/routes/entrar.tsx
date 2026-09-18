@@ -78,16 +78,16 @@ function LoginPage() {
       );
     }
 
-    console.log(
-      "✅ Cliente autenticado:",
-      cliente.nome,
-      `(ID: ${cliente.id})`
-    );
+    // console.log(
+    //   "✅ Cliente autenticado:",
+    //   cliente.nome,
+    //   `(ID: ${cliente.id})`
+    // );
 
-    console.log(
-      "🎫 cliente_token:",
-      !!localStorage.getItem("cliente_token")
-    );
+    // console.log(
+    //   "🎫 cliente_token:",
+    //   !!localStorage.getItem("cliente_token")
+    // );
 
    
     await navigate({

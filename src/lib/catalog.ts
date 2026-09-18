@@ -238,7 +238,7 @@ export async function fetchPartnersByCategoryFromAPI(
   try {
     // Tenta rota específica; se não existir, cai no syncPartnersFromAPI + filtro
     const response = await fetchWithTimeout(
-      `${API_URL}categories/${slug}/partners`,
+      `${API_URL}categorias/${slug}/partners`,
       {},
       4000
     );
@@ -246,7 +246,7 @@ export async function fetchPartnersByCategoryFromAPI(
     if (response.ok) {
       const result = await response.json();
       const data = Array.isArray(result) ? result : result?.data;
-      console.log(`📥 Partners da categoria ${slug} sincronizados da API:`, data?.length ?? 0);
+      //console.log(`📥 Partners da categoria ${slug} sincronizados da API:`, data?.length ?? 0);
 
       if (Array.isArray(data) && data.length > 0) {
         return data.map((p: Partial<Partner>) => createPartner(p));
@@ -573,7 +573,7 @@ export async function getHomeData(): Promise<HomeData> {
 export async function getFeaturedPartnersFromAPI(): Promise<Partner[]> {
   try {
     const response = await fetchWithTimeout(
-      `${API_URL}partners/featured`,
+      `${API_URL}partner/featured`,
       {},
       3000
     );
@@ -608,7 +608,7 @@ export async function syncPartnersFromAPI(): Promise<Partner[]> {
 
     const result = await response.json();
     if (result.success && result.data) {
-      console.log("📥 Partners sincronizados da API:", result.data.length);
+      //console.log("📥 Partners sincronizados da API:", result.data.length);
       return result.data.map((p: Partial<Partner>) => createPartner(p));
     }
 
@@ -660,7 +660,7 @@ export async function fetchAllPartnersFromAPI(): Promise<Partner[]> {
     if (Array.isArray(raw) && raw.length > 0) {
       _partnersCache = raw.map(createPartner);
       _partnersCacheAt = now;
-      console.log("📥 Partners da API:", _partnersCache.length);
+      //console.log("📥 Partners da API:", _partnersCache.length);
       return _partnersCache;
     }
   } catch (err) {
@@ -721,12 +721,12 @@ export async function getPartnersByCategoryAsync(
       const json = await res.json();
       const raw = Array.isArray(json) ? json : json?.data;
       if (Array.isArray(raw) && raw.length > 0) {
-        console.log(`📥 ${slug}: ${raw.length} da API`);
+        //console.log(`📥 ${slug}: ${raw.length} da API`);
         return raw.map(createPartner);
       }
     }
   } catch (err) {
-    console.warn(`⚠️ /categorias/${slug}/partners falhou:`, err);
+    //console.warn(`⚠️ /categorias/${slug}/partners falhou:`, err);
   }
 
   // 2) filtra da lista completa
