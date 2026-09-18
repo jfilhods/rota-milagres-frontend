@@ -16,7 +16,7 @@ import type {
 
 // ============ CONFIGURAÇÃO ============
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3333/api/";
+const API_URL = import.meta.env.VITE_API_URL 
 
 // ============ MAPEAMENTO DE IMAGENS POR CATEGORIA ============
 
@@ -194,7 +194,7 @@ export const MOCK_CATEGORIES: Category[] = jsonData.categories?.length
  */
 export async function syncCategoriesFromAPI(): Promise<Category[]> {
   try {
-    const response = await fetchWithTimeout(`${API_URL}/categories`, {}, 4000);
+    const response = await fetchWithTimeout(`${API_URL}categories`, {}, 4000);
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -204,7 +204,7 @@ export async function syncCategoriesFromAPI(): Promise<Category[]> {
     const data = Array.isArray(result) ? result : result?.data;
 
     if (Array.isArray(data) && data.length > 0) {
-      console.log("📥 Categorias sincronizadas da API:", data.length);
+      //console.log("📥 Categorias sincronizadas da API:", data.length);
       
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -238,7 +238,7 @@ export async function fetchPartnersByCategoryFromAPI(
   try {
     // Tenta rota específica; se não existir, cai no syncPartnersFromAPI + filtro
     const response = await fetchWithTimeout(
-      `${API_URL}/categories/${slug}/partners`,
+      `${API_URL}categories/${slug}/partners`,
       {},
       4000
     );
@@ -547,7 +547,7 @@ async function fetchWithTimeout(
  */
 export async function getHomeData(): Promise<HomeData> {
   try {
-    const response = await fetchWithTimeout(`${API_URL}/home`, {}, 3000);
+    const response = await fetchWithTimeout(`${API_URL}home`, {}, 3000);
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -573,7 +573,7 @@ export async function getHomeData(): Promise<HomeData> {
 export async function getFeaturedPartnersFromAPI(): Promise<Partner[]> {
   try {
     const response = await fetchWithTimeout(
-      `${API_URL}/partners/featured`,
+      `${API_URL}partners/featured`,
       {},
       3000
     );
@@ -601,7 +601,7 @@ export async function getFeaturedPartnersFromAPI(): Promise<Partner[]> {
  */
 export async function syncPartnersFromAPI(): Promise<Partner[]> {
   try {
-    const response = await fetch(`${API_URL}/debug/partners`);
+    const response = await fetch(`${API_URL}debug/partners`);
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
     }
@@ -651,7 +651,7 @@ export async function fetchAllPartnersFromAPI(): Promise<Partner[]> {
   }
 
   try {
-    const res = await fetchWithTimeout(`${API_URL}/partners`, {}, 5000);
+    const res = await fetchWithTimeout(`${API_URL}partners`, {}, 5000);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
     const json = await res.json();
@@ -680,7 +680,7 @@ export async function getPartnerBySlugAsync(
   // 1) endpoint dedicado (se existir)
   try {
     const res = await fetchWithTimeout(
-      `${API_URL}/partners/${encodeURIComponent(slug)}`,
+      `${API_URL}partners/${encodeURIComponent(slug)}`,
       {},
       5000
     );
@@ -713,7 +713,7 @@ export async function getPartnersByCategoryAsync(
   // 1) endpoint por categoria
   try {
     const res = await fetchWithTimeout(
-      `${API_URL}/categorias/${encodeURIComponent(slug)}/partners`,
+      `${API_URL}categorias/${encodeURIComponent(slug)}/partners`,
       {},
       5000
     );

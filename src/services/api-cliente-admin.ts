@@ -177,7 +177,7 @@ export async function getAdminClients(
     if (filters.endDate) params.append("endDate", filters.endDate);
   }
 
-  const url = `/admin/clientes${params.toString() ? `?${params.toString()}` : ''}`;
+  const url = `admin/clientes${params.toString() ? `?${params.toString()}` : ''}`;
   return adminRequest(url);
 }
 
@@ -188,7 +188,7 @@ export async function getAdminClient(id: string): Promise<{
   data: AdminClient;
 }> {
   if (!id) throw new Error("ID do cliente é obrigatório");
-  return adminRequest(`/admin/clientes/${id}`);
+  return adminRequest(`admin/clientes/${id}`);
 }
 
 /**
@@ -217,7 +217,7 @@ export async function createAdminClient(
     role: data.role || "user",
   };
 
-  return adminRequest("/admin/clientes", {
+  return adminRequest("admin/clientes", {
     method: "POST",
     body: JSON.stringify(payload),
   });
@@ -246,7 +246,7 @@ export async function updateAdminClient(
   if (data.role !== undefined) payload["role"] = data.role;
   if (data.password) payload["password"] = data.password;
 
-  return adminRequest(`/admin/clientes/${id}`, {
+  return adminRequest(`admin/clientes/${id}`, {
     method: "PUT",
     body: JSON.stringify(payload),
   });
@@ -259,7 +259,7 @@ export async function deleteAdminClient(id: string): Promise<{
   message: string;
 }> {
   if (!id) throw new Error("ID do cliente é obrigatório");
-  return adminRequest(`/admin/clientes/${id}`, {
+  return adminRequest(`admin/clientes/${id}`, {
     method: "DELETE",
   });
 }
@@ -275,7 +275,7 @@ export async function toggleAdminClientStatus(
   message: string;
 }> {
   if (!id) throw new Error("ID do cliente é obrigatório");
-  return adminRequest(`/admin/clientes/${id}/status`, {
+  return adminRequest(`admin/clientes/${id}/status`, {
     method: "PATCH",
     body: JSON.stringify({ active }),
   });
@@ -305,7 +305,7 @@ export async function searchAdminClients(
 export async function getAdminClientStats(): Promise<{
   data: AdminClientStats;
 }> {
-  return adminRequest("/admin/clientes/stats");
+  return adminRequest("admin/clientes/stats");
 }
 
 /**
@@ -324,7 +324,7 @@ export async function exportAdminClients(
     if (filters.endDate) params.append("endDate", filters.endDate);
   }
 
-  const url = `/admin/clientes/exportar${params.toString() ? `?${params.toString()}` : ''}`;
+  const url = `admin/clientes/exportar${params.toString() ? `?${params.toString()}` : ''}`;
   
   const token = localStorage.getItem("token") || localStorage.getItem("admin_token");
   const headers = new Headers();

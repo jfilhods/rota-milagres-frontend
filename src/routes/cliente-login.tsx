@@ -32,10 +32,7 @@ function ClienteLoginPage() {
     event.preventDefault();
 
     try {
-      await login({
-        email,
-        password,
-      });
+      await login(email, password);
 
       navigate({
         to: "/clientes",

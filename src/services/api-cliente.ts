@@ -341,7 +341,7 @@ export async function loginCliente(
 ): Promise<ClienteLoginResponse> {
   const response =
     await clienteRequest<ClienteLoginResponse>(
-      "/clientes/login",
+      "clientes/login",
       {
         method: "POST",
         body: JSON.stringify({
@@ -392,7 +392,7 @@ export async function registerCliente(
 ): Promise<ClienteLoginResponse> {
   const response =
     await clienteRequest<ClienteLoginResponse>(
-      "/clientes/register",
+      "clientes/register",
       {
         method: "POST",
         body: JSON.stringify(body),
@@ -427,7 +427,7 @@ export async function getClienteProfile(): Promise<ClienteAuthResponse> {
 
   const response =
     await clienteRequest<ClienteAuthResponse>(
-      "/clientes/profile",
+      "clientes/profile",
     );
 
   console.log(
@@ -444,7 +444,7 @@ export async function updateClientePerfil(
   return clienteRequest<
     ApiResponse<Cliente>
   >(
-    "/clientes/perfil",
+    "clientes/perfil",
     {
       method: "PUT",
       body: JSON.stringify(data),
@@ -461,7 +461,7 @@ export async function getClienteConsultas(): Promise<
 > {
   return clienteRequest<
     ApiResponse<ClienteConsulta[]>
-  >("/clientes/consultas");
+  >("clientes/consultas");
 }
 
 export async function registrarClienteInteracao(
@@ -469,7 +469,7 @@ export async function registrarClienteInteracao(
   tipo: string = "contato",
 ): Promise<ApiResponse<unknown>> {
   return clienteRequest<ApiResponse<unknown>>(
-    "/clientes/interacoes",
+    "clientes/interacoes",
     {
       method: "POST",
       body: JSON.stringify({
@@ -489,7 +489,7 @@ export async function getClienteFavoritos(): Promise<
 > {
   return clienteRequest<
     ApiResponse<ClienteFavorito[]>
-  >("/clientes/favoritos");
+  >("clientes/favoritos");
 }
 
 export async function adicionarFavorito(
@@ -500,7 +500,7 @@ export async function adicionarFavorito(
   return clienteRequest<
     ApiResponse<ClienteFavorito>
   >(
-    "/clientes/favoritos",
+    "clientes/favoritos",
     {
       method: "POST",
       body: JSON.stringify({
@@ -514,7 +514,7 @@ export async function removerFavorito(
   partnerId: string,
 ): Promise<void> {
   return clienteRequest<void>(
-    `/clientes/favoritos/${partnerId}`,
+    `clientes/favoritos/${partnerId}`,
     {
       method: "DELETE",
     },
@@ -530,7 +530,7 @@ export async function getClienteVouchers(): Promise<
 > {
   return clienteRequest<
     ApiResponse<ClienteVoucher[]>
-  >("/clientes/vouchers");
+  >("clientes/vouchers");
 }
 
 export async function criarVoucherJangada(
@@ -551,7 +551,7 @@ export async function criarVoucherJangada(
   return clienteRequest<
     ApiResponse<ClienteVoucher>
   >(
-    "/clientes/vouchers/jangadas",
+    "clientes/vouchers/jangadas",
     {
       method: "POST",
       body: JSON.stringify({
@@ -574,7 +574,7 @@ export async function getClienteAvaliacoes(): Promise<
 > {
   return clienteRequest<
     ApiResponse<ClienteAvaliacao[]>
-  >("/clientes/avaliacoes");
+  >("clientes/avaliacoes");
 }
 
 export async function createClienteAvaliacao(
@@ -585,7 +585,7 @@ export async function createClienteAvaliacao(
   return clienteRequest<
     ApiResponse<ClienteAvaliacao>
   >(
-    "/clientes/avaliacoes",
+    "clientes/avaliacoes",
     {
       method: "POST",
       body: JSON.stringify(data),
@@ -602,7 +602,7 @@ export async function updateClienteAvaliacao(
   return clienteRequest<
     ApiResponse<ClienteAvaliacao>
   >(
-    `/clientes/avaliacoes/${id}`,
+    `clientes/avaliacoes/${id}`,
     {
       method: "PUT",
       body: JSON.stringify(data),
@@ -622,7 +622,7 @@ export async function deleteClienteAvaliacao(
       success: boolean;
     }>
   >(
-    `/clientes/avaliacoes/${id}`,
+    `clientes/avaliacoes/${id}`,
     {
       method: "DELETE",
     },
@@ -643,7 +643,7 @@ export async function verificarAvaliacaoCliente(
       avaliacao?: ClienteAvaliacao;
     }>
   >(
-    `/clientes/avaliacoes/verificar/${partnerId}`,
+    `clientes/avaliacoes/verificar/${partnerId}`,
   );
 }
 
@@ -671,7 +671,7 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
 }
 
 export async function getPartnerAvaliacoes(partnerId: string): Promise<{ data: ClienteAvaliacao[] }> {
-  return request(`/parceiros/${partnerId}/avaliacoes`);
+  return request(`parceiros/${partnerId}/avaliacoes`);
 }
 
 
@@ -681,19 +681,19 @@ export async function criarClienteAvaliacao(
   nota: number,
   comentario?: string
 ): Promise<{ data: ClienteAvaliacao }> {
-  return clienteRequest(`/clientes/avaliacoes`, {
+  return clienteRequest(`clientes/avaliacoes`, {
     method: 'POST',
     body: JSON.stringify({ partnerId, nota, comentario }),
   });
 }
 
 export async function getFavoritoStatus(partnerId: string): Promise<{ isFavorito: boolean }> {
-  return clienteRequest(`/clientes/favoritos/${partnerId}/status`);
+  return clienteRequest(`clientes/favoritos/${partnerId}/status`);
 }
 
 // Alternar favorito (adiciona ou remove)
 export async function toggleFavorito(partnerId: string): Promise<{ isFavorito: boolean }> {
-  return clienteRequest(`/clientes/favoritos/${partnerId}/toggle`, { method: 'POST' });
+  return clienteRequest(`clientes/favoritos/${partnerId}/toggle`, { method: 'POST' });
 }
 
 // (Opcional) alias para manter compatibilidade com ClienteActionButton

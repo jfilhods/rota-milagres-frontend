@@ -83,7 +83,7 @@
       "website": "pousadadoenildo.vercel.app"
     },
     {
-      "id": "2",
+      "id": "f6bfec31-6106-4f75-845b-8446ddcf9f96",
       "slug": "Restaurante-do-Enildo",
       "name": "Restaurante do Enildo",
       "city": "São Miguel dos Milagres",
@@ -112,7 +112,7 @@
       "website": null
     },
     {
-      "id": "3",
+      "id": "2d5b2919-9820-4c53-8165-b8e9d32ab8ef",
       "slug": "quadriciclo",
       "name": "Quadriciclos",
       "city": "São Miguel dos Milagres",
@@ -171,7 +171,7 @@
       "website": null
     },
     {
-      "id": "5",
+      "id": "bf3b27d0-c78c-4108-bc2e-a8ec6f2b9f7c",
       "slug": "buggy-magnata-dael",
       "name": "Buggy Magnata - Dael",
       "city": "São Miguel dos Milagres",
@@ -199,7 +199,7 @@
       "website": null
     },
     {
-      "id": "6",
+      "id": "d98ac73a-381c-4073-adc0-259f5e76b0f7",
       "slug": "restaurante-cantinho-nordestino",
       "name": "Restaurante Cantinho nordestino",
       "city": "Passo de Camaragibe",
@@ -230,7 +230,7 @@
     },
     
     {
-      "id": "7",
+      "id": "a4cf3c9b-a371-488b-8ad0-078420541027",
       "slug": "pizzarias",
       "name": "Pizzaria Arretada",
       "city": "São Miguel dos Milagres",
@@ -262,7 +262,7 @@
 
     },
     {
-      "id":"8",
+      "id":"472fbfee-6ce1-4f9b-b8e5-b58f7e7ae446",
       "slug": "pedacinho-da-italia",
       "name": "Pedacinho da Itália",
       "city": "São Miguel dos Milagres",  
@@ -283,13 +283,13 @@
       ],
       "featured": false,
       "category": {
-        "id": "6",
+        "id": "05414d10-2a74-4ea0-a14f-6cc6135b097f",
         "name": "Pizzarias",
         "slug": "pizzarias"
       }
     },
     {
-      "id":"9",
+      "id":"76062418-4f1b-4f9e-812d-361aec239321",
       "slug":"comercios",
       "name":"BL - Farma", 
       "city":"São Miguel dos Milagres",
@@ -304,8 +304,8 @@
       "latitude": -9.208615008954807,
       "longitude": -35.328919444356146,
       "images":[
-        "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm59iaPnkkN0KlBqh7ArLlhkhqmLJekdhsVgsV2W-jD6g3p1rBrGhyTqjQVIKRo2fKum-0zWwBhJTxcYsWxvG6_L-GmcLchUlRPFFG6adcoy_YseHxPFwWnSpcHJXK3CymL7wnZ=s1360-w1360-h1020-rw",
-        "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmLY4XGePc-gZSiqbVStXrsUUmbPbFvV9k_jsrELpfqFeUyvByo4n_TZKDkK5VEWxZWf7xOEI6UAcyx6Qya4pxj4N8vZ2HSwOJ-ma0WcZX368bMr58z5oI8561jE2-SITycpmWb=s1360-w1360-h1020-rw"
+        "https://nnfvibpkmcnfotndsvmp.supabase.co/storage/v1/object/public/partner-images/partners/76062418-4f1b-4f9e-812d-361aec239321/bl-farma.webp",
+        "https://nnfvibpkmcnfotndsvmp.supabase.co/storage/v1/object/public/partner-images/partners/76062418-4f1b-4f9e-812d-361aec239321/bl-farma-produtos.webp"
         
       ],
       "featured": false,
@@ -313,10 +313,11 @@
         "id": "ba19aa12-8df9-4446-b930-5108ad9f58f5",
         "name": "Comércios",
         "slug": "comercios"
-      }
+      }, "instagram":"@blfarma.al"
+
     },
    {
-  "id": "10",
+  "id": "fe5cceea-4c3e-4350-a66b-e0eae49dc59e",
   "slug": "jangada",
   "name": "Passeios de Jangada",
   "city": "São Miguel dos Milagres",
@@ -431,7 +432,7 @@
   ],
 
   "category": {
-    "id": "4",
+    "id": "801b4280-0bf5-4200-a2f5-9d0ea1c42483",
     "name": "Jangadas",
     "slug": "jangadas"
   },
@@ -444,27 +445,27 @@
   ],
   "promos": [
     {
-      "id": "1",
-      "title": "Pacote Verão Milagres",
+      "id": "4199d490-b165-4f75-83c2-d762a35dc1d3",
+      "title": "Em breve",
       "detail": "Passeio de jangada + Almoço incluso no Restaurante da Lita",
       "badge": "🔥 Oferta da Rota Milagres",
       "imageUrl": "https://nnfvibpkmcnfotndsvmp.supabase.co/storage/v1/object/public/partner-images/partners/e2a9b3a1-1234-4a2b-9876-0123456789ab/ChatGPT%20Image%2013%20de%20set.%20de%202026,%2011_41_59.png",
       "partnerSlug": "pousada-dos-corais"
     },
     {
-      "id": "2",
-      "title": "Passeio de Buggy + Jangada",
+      "id": "5e4d5c7d-b916-46f9-b7c5-f5c1480e990b",
+      "title": "Em breve",
       "detail": "Roteiro completo com almoço incluso",
       "badge": "⭐ Experiência Completa",
-      "imageUrl": "https://SEU-PROJETO.supabase.co/storage/v1/object/public/marketplace/promos/buggy-jangada.jpg",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm_3YfGniT0Shdmcd3KqqriapTtBJiCc-SIbVNoI1bbA&s=10",
       "partnerSlug": "passeios-milagres"
     },
     {
-      "id": "3",
-      "title": "Menu Degustação",
+      "id": "d07effcb-94f3-41db-af97-03153607fd27",
+      "title": "Em breve",
       "detail": "5 pratos com frutos do mar frescos da região",
       "badge": "🍽️ Especial do Chef",
-      "imageUrl": "https://SEU-PROJETO.supabase.co/storage/v1/object/public/marketplace/promos/menu-degustacao.jpg",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm_3YfGniT0Shdmcd3KqqriapTtBJiCc-SIbVNoI1bbA&s=10",
       "partnerSlug": "restaurante-sabor-mar"
     }
   ]

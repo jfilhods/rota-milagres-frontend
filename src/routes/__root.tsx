@@ -18,7 +18,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { AuthProvider, useAuth } from "@/hooks/use-auth";
 
 import type { RouterContext } from "@/router";
-import {AppHeader } from '@/components/AppHeader'
+import { AppHeader } from '@/components/AppHeader'
 
 function NotFoundComponent() {
   return (
@@ -93,6 +93,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
           "Marketplace de turismo de São Miguel dos Milagres, Porto de Pedras, Japaratinga e Passo de Camaragibe.",
       },
       { property: "og:title", content: "Rota Milagres" },
+      { name: "theme-color", content: "#0e7490" },
       {
         property: "og:description",
         content: "Pousadas, restaurantes, passeios e serviços da Rota Ecológica de Alagoas.",
@@ -111,7 +112,9 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/rota-milagres-logo.png", type: "image/x-icon" },
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
     ],
   }),
   shellComponent: RootShell,

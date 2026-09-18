@@ -3,6 +3,7 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { Menu, Search, X, UserPlus, LogIn, Compass } from "lucide-react";
 import { useState } from "react";
 
+
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/categorias", label: "Categorias" },
@@ -35,17 +36,13 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
-        
+
         {/* Logo + Search */}
         <div className="flex min-w-0 flex-1 items-center gap-8">
-          <Link to="/" className="group flex shrink-0 items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary/15">
-              <Compass className="size-5" />
-            </div>
-            <span className="font-display text-xl font-semibold tracking-tight text-foreground">
-              Rota <span className="text-primary">Milagres</span>
-            </span>
-          </Link>
+          {/* Logo */}
+                    <Link to="/">
+                        <img src="/rota-milagres-logo.png" alt="Rota Milagres" className="h-14 w-auto" />
+                    </Link>
 
           {/* Search desktop */}
           <form

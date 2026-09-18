@@ -4,6 +4,7 @@ import { Menu, Search, X, UserPlus, User, LogOut, Shield, Store, Home, Eye } fro
 import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useClienteAuth } from "@/contexts/cliente-auth-context";
+import logo from "@/assets/rota-milagres-logo.png";
 
 import {
     DropdownMenu,
@@ -191,8 +192,8 @@ export function AppHeader() {
                 }`}>
                 <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
                     {/* Logo */}
-                    <Link to="/" className="shrink-0 font-display text-xl font-semibold tracking-tight text-primary">
-                        Rota Milagres
+                    <Link to="/">
+                        <img src="/rota-milagres-logo.png" alt="Rota Milagres" className="h-14 w-auto" />
                     </Link>
 
                     {/* Busca */}
@@ -360,9 +361,7 @@ export function AppHeader() {
         <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-md">
             <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
                 {/* Logo */}
-                <Link to="/" className="shrink-0 font-display text-xl font-semibold tracking-tight text-primary">
-                    Rota Milagres
-                </Link>
+                <img src="/rota-milagres-logo.png" alt="Rota Milagres" className="h-14 w-auto" />
 
                 {/* Busca */}
                 <form
