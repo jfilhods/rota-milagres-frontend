@@ -107,7 +107,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     { property: "og:locale", content: "pt_BR" },
     {
       property: "og:image",
-      content: "https://rotamilagres.vercel.app/og-image.png", // ajuste o domínio
+      content: "https://rotamilagres.vercel.app/icon-rota-milagres-logo.png", // ajuste o domínio
     },
     { property: "og:image:width", content: "1200" },
     { property: "og:image:height", content: "630" },
@@ -123,7 +123,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     },
     {
       name: "twitter:image",
-      content: "https://rotamilagres.vercel.app/og-image.png",
+      content: "https://rotamilagres.vercel.app/icon-rota-milagres-logo.png",
     },
   ],
   links: [
@@ -134,8 +134,8 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       href: "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap",
     },
     { rel: "stylesheet", href: appCss },
-    { rel: "icon", href: "/icon rota-milagres.png", type: "image/x-icon" },
-    { rel: "icon", type: "image/png", href: "/icon rota-milagres.png" },
+    { rel: "icon", href: "/icon-rota-milagres-logo.png", type: "image/x-icon" },
+    { rel: "icon", type: "image/png", href: "/icon-rota-milagres-logo.png" },
     { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
   ],
 }),
