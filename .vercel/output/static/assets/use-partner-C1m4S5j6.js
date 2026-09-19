@@ -1,1 +1,0 @@
-import{l as e}from"./index-ctceBxKm.js";function t(){let{user:t}=e();return t?.partner??null}export{t};

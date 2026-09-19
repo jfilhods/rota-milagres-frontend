@@ -16,14 +16,7 @@ export default defineConfig({
       server: { entry: "src/server" },
     }),
     react(),
-    nitro({
-      preset: "vercel",
-      output: {
-        dir: ".vercel/output",
-        serverDir: ".vercel/output/functions/__server.func",
-        publicDir: ".vercel/output/static",
-      },
-    }),
+    nitro(), // Sem preset, sem output. A Vercel detecta automaticamente.
   ],
   resolve: {
     alias: {
