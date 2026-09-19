@@ -111,7 +111,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     },
     { property: "og:image:width", content: "1200" },
     { property: "og:image:height", content: "630" },
-    { property: "og:image:alt", content: "Rota Milagres — Turismo na Costa dos Corais" },
+    { property: "og:image:alt", content: "Rota Milagres — Descrubra tudo na Rota dos Corais, Alagoas" },
 
     // Twitter / X
     { name: "twitter:card", content: "summary_large_image" },
