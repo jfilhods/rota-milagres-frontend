@@ -82,41 +82,63 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
 // Criar a rota raiz com o contexto tipado
 export const Route = createRootRouteWithContext<RouterContext>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Rota Milagres — turismo na Costa dos Corais, Alagoas" },
-      {
-        name: "description",
-        content:
-          "Marketplace de turismo de São Miguel dos Milagres, Porto de Pedras, Japaratinga e Passo de Camaragibe.",
-      },
-      { property: "og:title", content: "Rota Milagres" },
-      { name: "theme-color", content: "#0e7490" },
-      {
-        property: "og:description",
-        content: "Pousadas, restaurantes, passeios e serviços da Rota Ecológica de Alagoas.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap",
-      },
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-      { rel: "icon", href: "/rota-milagres-logo.png", type: "image/x-icon" },
-      { rel: "icon", type: "image/png", href: "/favicon.png" },
-      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
-    ],
-  }),
+ head: () => ({
+  meta: [
+    { charSet: "utf-8" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    { title: "Rota Milagres — Descrubra tudo na Rota dos Corais, Alagoas" },
+    {
+      name: "description",
+      content:
+        "Marketplace de turismo de São Miguel dos Milagres, Porto de Pedras, Japaratinga e Passo de Camaragibe.",
+    },
+    { name: "theme-color", content: "#0e7490" },
+
+    // Open Graph (Facebook, WhatsApp, LinkedIn, etc.)
+    { property: "og:title", content: "Rota Milagres" },
+    {
+      property: "og:description",
+      content:
+        "Pousadas, restaurantes, passeios e serviços da Rota Ecológica de Alagoas.",
+    },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: "https://rotamilagres.vercel.app" }, // ajuste para seu domínio
+    { property: "og:site_name", content: "Rota Milagres" },
+    { property: "og:locale", content: "pt_BR" },
+    {
+      property: "og:image",
+      content: "https://rotamilagres.vercel.app/og-image.png", // ajuste o domínio
+    },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
+    { property: "og:image:alt", content: "Rota Milagres — Turismo na Costa dos Corais" },
+
+    // Twitter / X
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: "Rota Milagres" },
+    {
+      name: "twitter:description",
+      content:
+        "Pousadas, restaurantes, passeios e serviços da Rota Ecológica de Alagoas.",
+    },
+    {
+      name: "twitter:image",
+      content: "https://rotamilagres.vercel.app/og-image.png",
+    },
+  ],
+  links: [
+    { rel: "preconnect", href: "https://fonts.googleapis.com" },
+    { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+    {
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap",
+    },
+    { rel: "stylesheet", href: appCss },
+    { rel: "icon", href: "/rota-milagres-logo.png", type: "image/x-icon" },
+    { rel: "icon", type: "image/png", href: "/rota-milagres-logo.png" },
+    { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+  ],
+}),
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
