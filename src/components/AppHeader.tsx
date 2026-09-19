@@ -193,7 +193,7 @@ export function AppHeader() {
                 <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
                     {/* Logo */}
                     <Link to="/">
-                        <img src="/rota-milagres-logo.png" alt="Rota Milagres" className="h-14 w-auto" />
+                        <img src="/icon-rota-milagres.png" alt="Rota Milagres" className="h-14 w-auto" />
                     </Link>
 
                     {/* Busca */}

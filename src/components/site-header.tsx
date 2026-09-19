@@ -41,7 +41,7 @@ export function SiteHeader() {
         <div className="flex min-w-0 flex-1 items-center gap-8">
           {/* Logo */}
                     <Link to="/">
-                        <img src="/rota-milagres-logo.png" alt="Rota Milagres" className="h-14 w-auto" />
+                        <img src="/icon-rota-milagres.png" alt="Rota Milagres" className="h-14 w-auto" />
                     </Link>
 
           {/* Search desktop */}
