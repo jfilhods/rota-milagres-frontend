@@ -1,1 +1,0 @@
-var e=`/assets/Praia_de_Porto_da_Rua_Sao_Miguel_dos_Milagres_Alagoas-zzC8_cfO.jpg`;export{e as t};

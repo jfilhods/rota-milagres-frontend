@@ -1,1 +1,0 @@
-import{l as e}from"./index-CU9d7j5d.js";function t(){let{user:t}=e();return t?.partner??null}export{t};
