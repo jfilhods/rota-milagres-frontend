@@ -20,7 +20,7 @@ const emptyAuth: AuthContextType = {
 
   login: async () => {},
   logout: async () => {},
-  refreshUser: () => {},
+  refreshUser: async () => {},
 };
 
 export function getRouter() {

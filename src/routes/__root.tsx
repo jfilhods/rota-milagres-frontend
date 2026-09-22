@@ -10,6 +10,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import { ClienteAuthProvider } from "@/contexts/cliente-auth-context";
+import { Analytics } from '@vercel/analytics/react'; 
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -111,7 +112,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     },
     { property: "og:image:width", content: "1200" },
     { property: "og:image:height", content: "630" },
-    { property: "og:image:alt", content: "Rota Milagres — Descrubra tudo na Rota dos Corais, Alagoas" },
+    { property: "og:image:alt", content: "Rota Milagres — Descubra tudo na Rota dos Corais, Alagoas" },
 
     // Twitter / X
     { name: "twitter:card", content: "summary_large_image" },
@@ -155,6 +156,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <body>
         {children}
         <Scripts />
+        <Analytics />
       </body>
     </html>
   );
@@ -204,5 +206,6 @@ function RootLayout() {
 
       <SiteFooter />
     </div>
+    
   );
 }
