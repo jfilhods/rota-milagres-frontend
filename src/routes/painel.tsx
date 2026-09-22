@@ -48,8 +48,8 @@ function PanelLayout() {
   const sig = `${user?.partner_id ?? "none"}-${hasCompleteData(user?.partner)}`;
   if (lastLog.current !== sig) {
     lastLog.current = sig;
-    console.log("[painel] user:", user);
-    console.log("[painel] completo?", hasCompleteData(user?.partner));
+    // console.log("[painel] user:", user);
+    // console.log("[painel] completo?", hasCompleteData(user?.partner));
   }
 
   if (loading) {

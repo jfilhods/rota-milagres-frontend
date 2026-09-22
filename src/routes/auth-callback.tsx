@@ -28,7 +28,7 @@ function AuthCallback() {
     let active = true;
 
     async function run() {
-      console.log("[auth-callback] iniciando");
+      //console.log("[auth-callback] iniciando");
 
       const { data: sessionData, error: sessionError } =
         await supabase.auth.getSession();
@@ -47,7 +47,7 @@ function AuthCallback() {
       }
 
       // sempre vai pro painel; ele decide se abre o modal de onboarding
-      console.log("[auth-callback] sessão ok → /painel");
+      //console.log("[auth-callback] sessão ok → /painel");
       navigate({ to: "/painel/perfil", replace: true });
     }
 

@@ -132,18 +132,18 @@ function useAuthProvider(): AuthContextType {
 
       try {
         const api = import.meta.env.VITE_API_URL.replace(/\/+$/, "");
-        console.log("[useAuth] chamando", `${api}/auth/me`);
+        //console.log("[useAuth] chamando", `${api}/auth/me`);
 
         const res = await fetch(`${api}/auth/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log("[useAuth] /auth/me status:", res.status);
+        //console.log("[useAuth] /auth/me status:", res.status);
         const json = await res.json();
-        console.log("[useAuth] /auth/me body:", json);
+        //console.log("[useAuth] /auth/me body:", json);
 
         if (!json?.success || !json.data) {
-          console.warn("[useAuth] /auth/me sem sucesso");
+          //console.warn("[useAuth] /auth/me sem sucesso");
           return null;
         }
 
@@ -156,13 +156,13 @@ function useAuthProvider(): AuthContextType {
         // use-auth.tsx — dentro do checkAdminPartnerAuth, trecho do partner
         if (partnerId) {
           try {
-            console.log("[useAuth] buscando partner:", partnerId);
+            //console.log("[useAuth] buscando partner:", partnerId);
             const partnerRes = await fetch(`${api}/partner/profile`, {
               headers: { Authorization: `Bearer ${token}` },
             });
 
             if (!partnerRes.ok) {
-              console.warn("[useAuth] /partner/profile status:", partnerRes.status);
+             // console.warn("[useAuth] /partner/profile status:", partnerRes.status);
             } else {
               const partnerJson = await partnerRes.json();
 
@@ -174,7 +174,7 @@ function useAuthProvider(): AuthContextType {
 
               if (extracted && typeof extracted === "object" && "name" in extracted) {
                 partner = extracted as Partner;
-                console.log("[useAuth] partner carregado:", partner?.name);
+                //console.log("[useAuth] partner carregado:", partner?.name);
               } else {
                 console.warn("[useAuth] shape inesperado:", partnerJson);
               }
@@ -251,7 +251,7 @@ function useAuthProvider(): AuthContextType {
   // ============================================================
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log("[useAuth] onAuthStateChange:", event, !!session);
+      //console.log("[useAuth] onAuthStateChange:", event, !!session);
 
       if (event === "SIGNED_OUT") {
         setUser(null);

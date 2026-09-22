@@ -9,12 +9,12 @@ export function usePartner(): Partner | null {
   useEffect(() => {
     let active = true;
 
-    console.log("[usePartner] buscando /partner/profile...");
+    //console.log("[usePartner] buscando /partner/profile...");
 
     getMyPartner()
       .then((data) => {
         if (!active) return;
-        console.log("[usePartner] resposta:", data);
+        //console.log("[usePartner] resposta:", data);
         setPartner(data);
       })
       .catch((err) => {
