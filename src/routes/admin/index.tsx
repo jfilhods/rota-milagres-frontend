@@ -13,11 +13,12 @@ import {
   Store,
   Users,
   CreditCard,
-  Tags,
   MapPin,
   Plus,
   ArrowRight,
   Building2,
+  UserCircle2,
+  Loader2,
 } from "lucide-react";
 import { toast } from "sonner";
 import type { LucideIcon } from "lucide-react";
@@ -28,10 +29,11 @@ export const Route = createFileRoute("/admin/")({
 
 const STAT_CARDS: {
   title: string;
-  key: keyof AdminStats | "partnersFallback";
+  key: keyof AdminStats;
   icon: LucideIcon;
   accent: string;
   iconBg: string;
+  description: string;
 }[] = [
   {
     title: "Parceiros",
@@ -39,13 +41,15 @@ const STAT_CARDS: {
     icon: Store,
     accent: "text-sky-600 dark:text-sky-400",
     iconBg: "bg-sky-500/10",
+    description: "Estabelecimentos cadastrados",
   },
   {
-    title: "Usuários",
-    key: "users",
-    icon: Users,
+    title: "Clientes",
+    key: "clients",
+    icon: UserCircle2,
     accent: "text-violet-600 dark:text-violet-400",
     iconBg: "bg-violet-500/10",
+    description: "Usuários do app / site",
   },
   {
     title: "Assinaturas",
@@ -53,13 +57,7 @@ const STAT_CARDS: {
     icon: CreditCard,
     accent: "text-emerald-600 dark:text-emerald-400",
     iconBg: "bg-emerald-500/10",
-  },
-  {
-    title: "Categorias",
-    key: "categories",
-    icon: Tags,
-    accent: "text-amber-600 dark:text-amber-400",
-    iconBg: "bg-amber-500/10",
+    description: "Planos vinculados",
   },
   {
     title: "Cidades",
@@ -67,6 +65,7 @@ const STAT_CARDS: {
     icon: MapPin,
     accent: "text-rose-600 dark:text-rose-400",
     iconBg: "bg-rose-500/10",
+    description: "Cidades ativas na rota",
   },
 ];
 
@@ -76,6 +75,21 @@ function planBadgeVariant(plan: string) {
   if (p === "prata") return "secondary" as const;
   if (p === "bronze") return "outline" as const;
   return "outline" as const;
+}
+
+function getPlan(partner: AdminPartner) {
+  if (!partner.subscriptions) return "gratuito";
+  if (Array.isArray(partner.subscriptions)) {
+    return partner.subscriptions[0]?.plan_type ?? "gratuito";
+  }
+  return partner.subscriptions.plan_type ?? "gratuito";
+}
+
+function getCityName(partner: AdminPartner) {
+  const c = partner.cities;
+  if (!c) return null;
+  if (Array.isArray(c)) return c[0]?.name ?? null;
+  return (c as { name?: string }).name ?? null;
 }
 
 function AdminDashboard() {
@@ -88,34 +102,22 @@ function AdminDashboard() {
       try {
         setLoading(true);
         const [statsRes, partnersRes] = await Promise.all([
-          getAdminDashboard().catch(() => null),
-          getAdminPartners().catch(() => null),
+          getAdminDashboard(),
+          getAdminPartners(),
         ]);
         if (statsRes?.data) setStats(statsRes.data);
         if (partnersRes?.data) setPartners(partnersRes.data);
-      } catch {
-        toast.error("Erro ao carregar dashboard");
+      } catch (err) {
+        console.error(err);
+        toast.error(
+          err instanceof Error ? err.message : "Erro ao carregar dashboard"
+        );
       } finally {
         setLoading(false);
       }
     };
     load();
   }, []);
-
-  const getPlan = (partner: AdminPartner) => {
-    if (!partner.subscriptions) return "N/A";
-    if (Array.isArray(partner.subscriptions)) {
-      return partner.subscriptions[0]?.plan_type ?? "N/A";
-    }
-    return partner.subscriptions.plan_type ?? "N/A";
-  };
-
-  const getStatValue = (key: keyof AdminStats | "partnersFallback") => {
-    if (key === "partners" || key === "partnersFallback") {
-      return stats?.partners ?? partners.length;
-    }
-    return stats?.[key];
-  };
 
   return (
     <div className="space-y-8">
@@ -126,7 +128,7 @@ function AdminDashboard() {
             Dashboard
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Visão geral da plataforma e parceiros cadastrados
+            Visão geral: parceiros, clientes, assinaturas e cidades
           </p>
         </div>
         <Link to="/admin/partners/create">
@@ -138,10 +140,11 @@ function AdminDashboard() {
       </div>
 
       {/* Stats */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {STAT_CARDS.map((card) => {
           const Icon = card.icon;
-          const value = getStatValue(card.key);
+          const value = stats?.[card.key];
+
           return (
             <Card
               key={card.title}
@@ -152,18 +155,26 @@ function AdminDashboard() {
                   {card.title}
                 </CardTitle>
                 <div
-                  className={`flex h-8 w-8 items-center justify-center rounded-lg ${card.iconBg}`}
+                  className={`flex h-9 w-9 items-center justify-center rounded-lg ${card.iconBg}`}
                 >
                   <Icon className={`h-4 w-4 ${card.accent}`} />
                 </div>
               </CardHeader>
               <CardContent>
                 {loading ? (
-                  <div className="h-8 w-16 animate-pulse rounded bg-muted" />
-                ) : (
-                  <div className="text-2xl font-bold tabular-nums tracking-tight">
-                    {value ?? "—"}
+                  <div className="flex items-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                    <div className="h-8 w-14 animate-pulse rounded bg-muted" />
                   </div>
+                ) : (
+                  <>
+                    <div className="text-2xl font-bold tabular-nums tracking-tight">
+                      {value ?? 0}
+                    </div>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {card.description}
+                    </p>
+                  </>
                 )}
               </CardContent>
             </Card>
@@ -171,13 +182,32 @@ function AdminDashboard() {
         })}
       </div>
 
-      {/* Partners */}
+      {/* Resumo extra (usuários do painel / categorias) se vier no payload */}
+      {stats && (stats.users != null || stats.categories != null) && (
+        <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
+          {stats.users != null && (
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1">
+              <Users className="h-3.5 w-3.5" />
+              {stats.users} usuários do painel
+            </span>
+          )}
+          {stats.categories != null && (
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1">
+              {stats.categories} categorias
+            </span>
+          )}
+        </div>
+      )}
+
+      {/* Parceiros recentes */}
       <div className="space-y-4">
         <div className="flex items-center justify-between gap-3">
           <div>
             <h2 className="text-lg font-semibold tracking-tight">Parceiros</h2>
             <p className="text-xs text-muted-foreground">
-              Últimos {Math.min(partners.length, 10)} cadastrados
+              {partners.length === 0
+                ? "Nenhum cadastrado"
+                : `Últimos ${Math.min(partners.length, 10)} cadastrados`}
             </p>
           </div>
           <Link to="/admin/partners">
@@ -226,6 +256,8 @@ function AdminDashboard() {
           <div className="grid gap-3">
             {partners.slice(0, 10).map((partner) => {
               const plan = getPlan(partner);
+              const city = getCityName(partner);
+
               return (
                 <Card
                   key={partner.id}
@@ -251,12 +283,16 @@ function AdminDashboard() {
                           >
                             {partner.active ? "Ativo" : "Inativo"}
                           </Badge>
-                          <Badge variant={planBadgeVariant(plan)} className="capitalize">
+                          <Badge
+                            variant={planBadgeVariant(plan)}
+                            className="capitalize"
+                          >
                             {plan}
                           </Badge>
                         </div>
                         <p className="mt-0.5 truncate text-sm text-muted-foreground">
                           /{partner.slug}
+                          {city ? ` · ${city}` : ""}
                         </p>
                       </div>
                     </div>
@@ -265,7 +301,11 @@ function AdminDashboard() {
                       params={{ id: partner.id }}
                       className="sm:shrink-0"
                     >
-                      <Button variant="outline" size="sm" className="w-full sm:w-auto">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full sm:w-auto"
+                      >
                         Editar
                       </Button>
                     </Link>

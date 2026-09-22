@@ -4,7 +4,7 @@ import { Menu, Search, X, UserPlus, User, LogOut, Shield, Store, Home, Eye } fro
 import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useClienteAuth } from "@/contexts/cliente-auth-context";
-import logo from "@/assets/rota-milagres-logo.png";
+ 
 
 import {
     DropdownMenu,
@@ -394,12 +394,12 @@ export function AppHeader() {
                         ))}
                     </nav>
 
-                    {/* <Link
-                        to="/planos"
+                    <Link
+                        to="/cadastro-parceiro" search={{ plano: "gratuito" }}
                         className="hidden rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
                     >
                         Seja um Parceiro
-                    </Link> */}
+                    </Link>
 
                     <Link
                         to="/cadastro-cliente"

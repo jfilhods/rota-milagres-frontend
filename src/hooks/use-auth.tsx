@@ -8,13 +8,14 @@ import {
   useContext,
   type ReactNode,
 } from "react";
-
+import type { Partner } from "@/services/api";  // ← de @/lib/catalog
 import { useNavigate } from "@tanstack/react-router";
-
+import { supabase } from "@/lib/supabase";
 import {
+
   getAuthProfile,
   login as apiLogin,
-  type Partner,
+
 } from "@/services/api";
 
 // ============================================================
@@ -40,21 +41,13 @@ export interface LoginCredentials {
 
 export interface AuthContextType {
   user: User | null;
-
   loading: boolean;
-
   error: string | null;
-
   isAuthenticated: boolean;
-
   isAdmin: boolean;
-
   isPartner: boolean;
-
   currentRole: UserRole | null;
-
   userName: string;
-
   login: (
     credentials: LoginCredentials,
   ) => Promise<void>;
@@ -63,7 +56,7 @@ export interface AuthContextType {
     message?: string,
   ) => Promise<void>;
 
-  refreshUser: () => void;
+  refreshUser: () => Promise<void>;
 }
 
 // ============================================================
@@ -129,116 +122,150 @@ function useAuthProvider(): AuthContextType {
   // VERIFICA ADMIN / PARTNER
   // ============================================================
 
-  const checkAdminPartnerAuth =
-    async (): Promise<User | null> => {
-      const token =
-        localStorage.getItem("auth_token");
+  const checkAdminPartnerAuth = async (): Promise<User | null> => {
+    // 1. Tenta sessão Supabase (Google OAuth)
+    const { data: sessionData } = await supabase.auth.getSession();
 
-      if (!token) {
-        return null;
-      }
+    if (sessionData.session) {
+      const token = sessionData.session.access_token;
+      const supaUser = sessionData.session.user;
 
       try {
-        const response =
-          await getAuthProfile();
+        const api = import.meta.env.VITE_API_URL.replace(/\/+$/, "");
+        console.log("[useAuth] chamando", `${api}/auth/me`);
 
-        if (
-          !response.success ||
-          !response.data?.user
-        ) {
+        const res = await fetch(`${api}/auth/me`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        console.log("[useAuth] /auth/me status:", res.status);
+        const json = await res.json();
+        console.log("[useAuth] /auth/me body:", json);
+
+        if (!json?.success || !json.data) {
+          console.warn("[useAuth] /auth/me sem sucesso");
           return null;
         }
 
-        const apiUser =
-          response.data.user;
 
-        // console.log(
-        //   "AUTH PROFILE:",
-        //   apiUser,
-        // );
+        if (!json?.success || !json.data) return null;
 
-        // console.log(
-        //   "AUTH ROLE:",
-        //   apiUser.role,
-        // );
+        const { role, partnerId, plan } = json.data;
 
-        // console.log(
-        //   "AUTH PARTNER_ID:",
-        //   apiUser.partner_id,
-        // );
+        let partner: Partner | null = null;
+        // use-auth.tsx — dentro do checkAdminPartnerAuth, trecho do partner
+        if (partnerId) {
+          try {
+            console.log("[useAuth] buscando partner:", partnerId);
+            const partnerRes = await fetch(`${api}/partner/profile`, {
+              headers: { Authorization: `Bearer ${token}` },
+            });
 
-        // ======================================================
-        // ADMIN
-        // ======================================================
+            if (!partnerRes.ok) {
+              console.warn("[useAuth] /partner/profile status:", partnerRes.status);
+            } else {
+              const partnerJson = await partnerRes.json();
 
-        if (apiUser.role === "admin") {
-          return {
-            id: apiUser.id,
-            email: apiUser.email || "",
-            role: "admin",
-            partner_id: null,
-            partner: null,
-            nome:
-              apiUser.email?.split("@")[0] ||
-              "Administrador",
-          };
-        }
+              // Aceita dois formatos:
+              // 1) { success: true, data: { partner: {...} } }
+              // 2) { user: {...}, partner: {...} }
+              const raw = partnerJson?.data ?? partnerJson;
+              const extracted = raw?.partner ?? raw;
 
-        // ======================================================
-        // OWNER / MANAGER
-        // ======================================================
-
-        if (
-          apiUser.role === "owner" ||
-          apiUser.role === "manager"
-        ) {
-          if (!apiUser.partner_id) {
-            console.error(
-              "Usuário partner sem partner_id",
-            );
-
-            return null;
+              if (extracted && typeof extracted === "object" && "name" in extracted) {
+                partner = extracted as Partner;
+                console.log("[useAuth] partner carregado:", partner?.name);
+              } else {
+                console.warn("[useAuth] shape inesperado:", partnerJson);
+              }
+            }
+          } catch (err) {
+            console.error("[useAuth] erro no fetch do partner:", err);
           }
-
-          return {
-            id: apiUser.id,
-            email: apiUser.email || "",
-            role: apiUser.role,
-            partner_id: apiUser.partner_id,
-            nome:
-              apiUser.email?.split("@")[0] ||
-              "Parceiro",
-            partner:
-              response.data.partner ?? null,
-          };
         }
 
-        return null;
-      } catch (error) {
-        console.error(
-          "Erro ao verificar autenticação admin/partner:",
-          error,
-        );
-
-        localStorage.removeItem(
-          "auth_token",
-        );
-
-        localStorage.removeItem(
-          "auth_refresh_token",
-        );
-
-        localStorage.removeItem(
-          "auth_expires_at",
-        );
-
+        return {
+          id: supaUser.id,
+          email: supaUser.email ?? "",
+          role: (role === "admin" ? "admin" : "owner") as UserRole,
+          partner_id: partnerId ?? null,
+          nome:
+            (supaUser.user_metadata?.['full_name'] as string) ??
+            (supaUser.user_metadata?.['name'] as string) ??
+            supaUser.email?.split("@")[0] ??
+            "Usuário",
+          partner,
+        };
+      } catch (err) {
+        console.error("[useAuth] erro ao buscar /auth/me:", err);
         return null;
       }
-    };
+    }
+
+    // 2. Fallback: sistema antigo via auth_token
+    const token = localStorage.getItem("auth_token");
+    if (!token) return null;
+
+    try {
+      const response = await getAuthProfile();
+      if (!response.success || !response.data?.user) return null;
+
+      const apiUser = response.data.user;
+
+      if (apiUser.role === "admin") {
+        return {
+          id: apiUser.id,
+          email: apiUser.email || "",
+          role: "admin",
+          partner_id: null,
+          partner: null,
+          nome: apiUser.email?.split("@")[0] || "Administrador",
+        };
+      }
+
+      if (apiUser.role === "owner" || apiUser.role === "manager") {
+        if (!apiUser.partner_id) return null;
+        return {
+          id: apiUser.id,
+          email: apiUser.email || "",
+          role: apiUser.role,
+          partner_id: apiUser.partner_id,
+          nome: apiUser.email?.split("@")[0] || "Parceiro",
+          partner: response.data.partner ?? null,
+
+        };
+      }
+
+      return null;
+    } catch (error) {
+      console.error("Erro ao verificar autenticação antiga:", error);
+      localStorage.removeItem("auth_token");
+      localStorage.removeItem("auth_refresh_token");
+      localStorage.removeItem("auth_expires_at");
+      return null;
+    }
+  };
 
   // ============================================================
   // INICIALIZA AUTENTICAÇÃO
   // ============================================================
+  useEffect(() => {
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log("[useAuth] onAuthStateChange:", event, !!session);
+
+      if (event === "SIGNED_OUT") {
+        setUser(null);
+        return;
+      }
+
+      if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
+        checkAdminPartnerAuth().then((u) => setUser(u));
+      }
+    });
+
+    return () => sub.subscription.unsubscribe();
+  }, []);
+
 
   useEffect(() => {
     let mounted = true;
@@ -380,9 +407,9 @@ function useAuthProvider(): AuthContextType {
 
       if (
         authenticatedUser.role ===
-          "owner" ||
+        "owner" ||
         authenticatedUser.role ===
-          "manager"
+        "manager"
       ) {
         await navigate({
           to: "/painel",
@@ -471,25 +498,17 @@ function useAuthProvider(): AuthContextType {
   // LOGOUT
   // ============================================================
 
-  const handleLogout = async (
-    message?: string,
-  ) => {
+  const handleLogout = async (message?: string) => {
     if (sessionTimeout) {
       clearTimeout(sessionTimeout);
       setSessionTimeout(null);
     }
 
-    localStorage.removeItem(
-      "auth_token",
-    );
+    localStorage.removeItem("auth_token");
+    localStorage.removeItem("auth_refresh_token");
+    localStorage.removeItem("auth_expires_at");
 
-    localStorage.removeItem(
-      "auth_refresh_token",
-    );
-
-    localStorage.removeItem(
-      "auth_expires_at",
-    );
+    await supabase.auth.signOut().catch(() => undefined);
 
     setUser(null);
 
@@ -509,9 +528,23 @@ function useAuthProvider(): AuthContextType {
   // REFRESH
   // ============================================================
 
-  const refreshUser = () => {
-    window.location.reload();
+  const refreshUser = async () => {
+    try {
+      setLoading(true);
+
+      const u = await checkAdminPartnerAuth();
+
+      setUser(u);
+    } catch (error) {
+      console.error(
+        "[useAuth] erro ao atualizar usuário:",
+        error
+      );
+    } finally {
+      setLoading(false);
+    }
   };
+
 
   // ============================================================
   // ESTADOS

@@ -40,9 +40,9 @@ export function SiteHeader() {
         {/* Logo + Search */}
         <div className="flex min-w-0 flex-1 items-center gap-8">
           {/* Logo */}
-                    <Link to="/">
-                        <img src="/icon-rota-milagres.png" alt="Rota Milagres" className="h-14 w-auto" />
-                    </Link>
+          <Link to="/">
+            <img src="/icon-rota-milagres.png" alt="Rota Milagres" className="h-14 w-auto" />
+          </Link>
 
           {/* Search desktop */}
           <form
@@ -80,12 +80,12 @@ export function SiteHeader() {
 
           <div className="mx-1 hidden h-5 w-px bg-border/60 sm:block lg:mx-2" />
 
-          {/* <Link
-            to="/planos"
-            className="hidden rounded-xl px-3.5 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:inline-flex"
+          <Link
+            to="/cadastro-parceiro" search={{ plano: "gratuito" }}
+            className="hidden rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
           >
-            Seja Parceiro
-          </Link> */}
+            Seja um Parceiro
+          </Link>
 
           <Link
             to="/cadastro-cliente"

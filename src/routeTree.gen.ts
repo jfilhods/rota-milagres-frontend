@@ -11,8 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
+import { Route as AuthCallbackRouteImport } from './routes/auth-callback'
 import { Route as BuscarRouteImport } from './routes/buscar'
 import { Route as CadastroClienteRouteImport } from './routes/cadastro-cliente'
+import { Route as CadastroParceiroRouteImport } from './routes/cadastro-parceiro'
+import { Route as CadastroParceiroEmailRouteImport } from './routes/cadastro-parceiro-email'
 import { Route as CategoriasRouteImport } from './routes/categorias'
 import { Route as ClienteLoginRouteImport } from './routes/cliente-login'
 import { Route as ClientesRouteRouteImport } from './routes/clientes/route'
@@ -35,6 +38,7 @@ import { Route as ClientesFavoritosRouteImport } from './routes/clientes/favorit
 import { Route as ClientesPainelClienteRouteImport } from './routes/clientes/painel-cliente'
 import { Route as ClientesPerfilRouteImport } from './routes/clientes/perfil'
 import { Route as ClientesVouchersRouteImport } from './routes/clientes/vouchers'
+import { Route as OnboardingDisableRouteImport } from './routes/onboarding.disable'
 import { Route as PainelIndexRouteImport } from './routes/painel/index'
 import { Route as PainelAvaliacoesRouteImport } from './routes/painel/avaliacoes'
 import { Route as PainelConfiguracoesRouteImport } from './routes/painel/configuracoes'
@@ -62,6 +66,11 @@ const AdminRouteRoute = AdminRouteRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/auth-callback',
+  path: '/auth-callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BuscarRoute = BuscarRouteImport.update({
   id: '/buscar',
   path: '/buscar',
@@ -70,6 +79,16 @@ const BuscarRoute = BuscarRouteImport.update({
 const CadastroClienteRoute = CadastroClienteRouteImport.update({
   id: '/cadastro-cliente',
   path: '/cadastro-cliente',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CadastroParceiroRoute = CadastroParceiroRouteImport.update({
+  id: '/cadastro-parceiro',
+  path: '/cadastro-parceiro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CadastroParceiroEmailRoute = CadastroParceiroEmailRouteImport.update({
+  id: '/cadastro-parceiro-email',
+  path: '/cadastro-parceiro-email',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategoriasRoute = CategoriasRouteImport.update({
@@ -182,6 +201,11 @@ const ClientesVouchersRoute = ClientesVouchersRouteImport.update({
   path: '/vouchers',
   getParentRoute: () => ClientesRouteRoute,
 } as any)
+const OnboardingDisableRoute = OnboardingDisableRouteImport.update({
+  id: '/onboarding/disable',
+  path: '/onboarding/disable',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PainelIndexRoute = PainelIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -267,8 +291,11 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
   '/clientes': typeof ClientesRouteRouteWithChildren
+  '/auth-callback': typeof AuthCallbackRoute
   '/buscar': typeof BuscarRoute
   '/cadastro-cliente': typeof CadastroClienteRoute
+  '/cadastro-parceiro': typeof CadastroParceiroRoute
+  '/cadastro-parceiro-email': typeof CadastroParceiroEmailRoute
   '/categorias': typeof CategoriasRoute
   '/cliente-login': typeof ClienteLoginRoute
   '/definir-senha': typeof DefinirSenhaRoute
@@ -288,6 +315,7 @@ export interface FileRoutesByFullPath {
   '/clientes/painel-cliente': typeof ClientesPainelClienteRoute
   '/clientes/perfil': typeof ClientesPerfilRoute
   '/clientes/vouchers': typeof ClientesVouchersRoute
+  '/onboarding/disable': typeof OnboardingDisableRoute
   '/painel/avaliacoes': typeof PainelAvaliacoesRoute
   '/painel/configuracoes': typeof PainelConfiguracoesRoute
   '/painel/estatisticas': typeof PainelEstatisticasRoute
@@ -309,8 +337,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth-callback': typeof AuthCallbackRoute
   '/buscar': typeof BuscarRoute
   '/cadastro-cliente': typeof CadastroClienteRoute
+  '/cadastro-parceiro': typeof CadastroParceiroRoute
+  '/cadastro-parceiro-email': typeof CadastroParceiroEmailRoute
   '/categorias': typeof CategoriasRoute
   '/cliente-login': typeof ClienteLoginRoute
   '/definir-senha': typeof DefinirSenhaRoute
@@ -328,6 +359,7 @@ export interface FileRoutesByTo {
   '/clientes/painel-cliente': typeof ClientesPainelClienteRoute
   '/clientes/perfil': typeof ClientesPerfilRoute
   '/clientes/vouchers': typeof ClientesVouchersRoute
+  '/onboarding/disable': typeof OnboardingDisableRoute
   '/painel/avaliacoes': typeof PainelAvaliacoesRoute
   '/painel/configuracoes': typeof PainelConfiguracoesRoute
   '/painel/estatisticas': typeof PainelEstatisticasRoute
@@ -352,8 +384,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
   '/clientes': typeof ClientesRouteRouteWithChildren
+  '/auth-callback': typeof AuthCallbackRoute
   '/buscar': typeof BuscarRoute
   '/cadastro-cliente': typeof CadastroClienteRoute
+  '/cadastro-parceiro': typeof CadastroParceiroRoute
+  '/cadastro-parceiro-email': typeof CadastroParceiroEmailRoute
   '/categorias': typeof CategoriasRoute
   '/cliente-login': typeof ClienteLoginRoute
   '/definir-senha': typeof DefinirSenhaRoute
@@ -373,6 +408,7 @@ export interface FileRoutesById {
   '/clientes/painel-cliente': typeof ClientesPainelClienteRoute
   '/clientes/perfil': typeof ClientesPerfilRoute
   '/clientes/vouchers': typeof ClientesVouchersRoute
+  '/onboarding/disable': typeof OnboardingDisableRoute
   '/painel/avaliacoes': typeof PainelAvaliacoesRoute
   '/painel/configuracoes': typeof PainelConfiguracoesRoute
   '/painel/estatisticas': typeof PainelEstatisticasRoute
@@ -398,8 +434,11 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/clientes'
+    | '/auth-callback'
     | '/buscar'
     | '/cadastro-cliente'
+    | '/cadastro-parceiro'
+    | '/cadastro-parceiro-email'
     | '/categorias'
     | '/cliente-login'
     | '/definir-senha'
@@ -419,6 +458,7 @@ export interface FileRouteTypes {
     | '/clientes/painel-cliente'
     | '/clientes/perfil'
     | '/clientes/vouchers'
+    | '/onboarding/disable'
     | '/painel/avaliacoes'
     | '/painel/configuracoes'
     | '/painel/estatisticas'
@@ -440,8 +480,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth-callback'
     | '/buscar'
     | '/cadastro-cliente'
+    | '/cadastro-parceiro'
+    | '/cadastro-parceiro-email'
     | '/categorias'
     | '/cliente-login'
     | '/definir-senha'
@@ -459,6 +502,7 @@ export interface FileRouteTypes {
     | '/clientes/painel-cliente'
     | '/clientes/perfil'
     | '/clientes/vouchers'
+    | '/onboarding/disable'
     | '/painel/avaliacoes'
     | '/painel/configuracoes'
     | '/painel/estatisticas'
@@ -482,8 +526,11 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/clientes'
+    | '/auth-callback'
     | '/buscar'
     | '/cadastro-cliente'
+    | '/cadastro-parceiro'
+    | '/cadastro-parceiro-email'
     | '/categorias'
     | '/cliente-login'
     | '/definir-senha'
@@ -503,6 +550,7 @@ export interface FileRouteTypes {
     | '/clientes/painel-cliente'
     | '/clientes/perfil'
     | '/clientes/vouchers'
+    | '/onboarding/disable'
     | '/painel/avaliacoes'
     | '/painel/configuracoes'
     | '/painel/estatisticas'
@@ -527,8 +575,11 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRouteRoute: typeof AdminRouteRouteWithChildren
   ClientesRouteRoute: typeof ClientesRouteRouteWithChildren
+  AuthCallbackRoute: typeof AuthCallbackRoute
   BuscarRoute: typeof BuscarRoute
   CadastroClienteRoute: typeof CadastroClienteRoute
+  CadastroParceiroRoute: typeof CadastroParceiroRoute
+  CadastroParceiroEmailRoute: typeof CadastroParceiroEmailRoute
   CategoriasRoute: typeof CategoriasRoute
   ClienteLoginRoute: typeof ClienteLoginRoute
   DefinirSenhaRoute: typeof DefinirSenhaRoute
@@ -539,6 +590,7 @@ export interface RootRouteChildren {
   PlanosRoute: typeof PlanosRoute
   PreservacaoRoute: typeof PreservacaoRoute
   CategoriaSlugRoute: typeof CategoriaSlugRoute
+  OnboardingDisableRoute: typeof OnboardingDisableRoute
   ParceiroSlugRoute: typeof ParceiroSlugRoute
 }
 
@@ -558,6 +610,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth-callback': {
+      id: '/auth-callback'
+      path: '/auth-callback'
+      fullPath: '/auth-callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/buscar': {
       id: '/buscar'
       path: '/buscar'
@@ -570,6 +629,20 @@ declare module '@tanstack/react-router' {
       path: '/cadastro-cliente'
       fullPath: '/cadastro-cliente'
       preLoaderRoute: typeof CadastroClienteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cadastro-parceiro': {
+      id: '/cadastro-parceiro'
+      path: '/cadastro-parceiro'
+      fullPath: '/cadastro-parceiro'
+      preLoaderRoute: typeof CadastroParceiroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cadastro-parceiro-email': {
+      id: '/cadastro-parceiro-email'
+      path: '/cadastro-parceiro-email'
+      fullPath: '/cadastro-parceiro-email'
+      preLoaderRoute: typeof CadastroParceiroEmailRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/categorias': {
@@ -725,6 +798,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/clientes/vouchers'
       preLoaderRoute: typeof ClientesVouchersRouteImport
       parentRoute: typeof ClientesRouteRoute
+    }
+    '/onboarding/disable': {
+      id: '/onboarding/disable'
+      path: '/onboarding/disable'
+      fullPath: '/onboarding/disable'
+      preLoaderRoute: typeof OnboardingDisableRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/painel/': {
       id: '/painel/'
@@ -945,8 +1025,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRouteRoute: AdminRouteRouteWithChildren,
   ClientesRouteRoute: ClientesRouteRouteWithChildren,
+  AuthCallbackRoute: AuthCallbackRoute,
   BuscarRoute: BuscarRoute,
   CadastroClienteRoute: CadastroClienteRoute,
+  CadastroParceiroRoute: CadastroParceiroRoute,
+  CadastroParceiroEmailRoute: CadastroParceiroEmailRoute,
   CategoriasRoute: CategoriasRoute,
   ClienteLoginRoute: ClienteLoginRoute,
   DefinirSenhaRoute: DefinirSenhaRoute,
@@ -957,6 +1040,7 @@ const rootRouteChildren: RootRouteChildren = {
   PlanosRoute: PlanosRoute,
   PreservacaoRoute: PreservacaoRoute,
   CategoriaSlugRoute: CategoriaSlugRoute,
+  OnboardingDisableRoute: OnboardingDisableRoute,
   ParceiroSlugRoute: ParceiroSlugRoute,
 }
 export const routeTree = rootRouteImport

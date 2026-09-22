@@ -1,3 +1,5 @@
+import { supabase } from "@/lib/supabase"; //
+
 const API_BASE = import.meta.env.VITE_API_URL 
 
 // ============ TIPOS ============
@@ -76,6 +78,7 @@ export interface OnboardPartnerData {
   send_invite?: boolean;
   default_password?: string;
   featured?: boolean;
+  authUserId?: string
   active?: boolean;
   [key: string]: unknown;
 }
@@ -83,6 +86,7 @@ export interface OnboardPartnerData {
 
 export interface AdminStats {
   partners: number;
+  clients: number; // clientes
   users: number;
   subscriptions: number;
   categories: number;
@@ -348,48 +352,91 @@ export async function registrarClienteInteracao(
 
 // ============ FUNÇÃO BASE ============
 
-// ============ FUNÇÃO BASE ============
+async function getAccessToken(): Promise<string | null> {
+  // 1) preferir sessão Supabase (fonte da verdade no seu painel)
+  const { data } = await supabase.auth.getSession();
+  const fromSupabase = data.session?.access_token ?? null;
+  if (fromSupabase) return fromSupabase;
 
-async function request<T>(path: string, init: RequestInit = {}, retry = true): Promise<T> {
-  const token = localStorage.getItem("auth_token");
+  // 2) fallback legado (se ainda usar login custom)
+  return localStorage.getItem("auth_token");
+}
+
+function joinUrl(base: string, path: string) {
+  const b = (base || "").replace(/\/+$/, "");
+  const p = path.replace(/^\/+/, "");
+  return `${b}/${p}`;
+}
+
+async function request<T>(
+  path: string,
+  init: RequestInit = {},
+  retry = true
+): Promise<T> {
+  const token = await getAccessToken();
   const headers = new Headers(init.headers);
-  headers.set("Content-Type", "application/json");
 
-  const isPublicAuthRoute = 
-    path.includes("/login") || 
-    path.includes("/register");
+  const isFormData =
+    typeof FormData !== "undefined" && init.body instanceof FormData;
+  if (!isFormData && !headers.has("Content-Type")) {
+    headers.set("Content-Type", "application/json");
+  }
 
-  if (token && !isPublicAuthRoute) {
+  const isPublicAuthRoute =
+    path.includes("auth/login") ||
+    path.includes("auth/register") ||
+    path.includes("clientes/login") ||
+    path.includes("clientes/register");
+
+  const needsAuth = !isPublicAuthRoute;
+
+  if (needsAuth && !token) {
+    throw new Error("Token não fornecido");
+  }
+
+  if (token && needsAuth) {
     headers.set("Authorization", `Bearer ${token}`);
   }
 
-  const res = await fetch(`${API_BASE}${path}`, { ...init, headers });
+  const url = joinUrl(API_BASE, path);
+  const res = await fetch(url, { ...init, headers });
 
-  if (res.status === 401 && retry && !isPublicAuthRoute) {
+  if (res.status === 401 && retry && needsAuth) {
+    // tenta renovar via Supabase
+    const { data: refreshed, error } = await supabase.auth.refreshSession();
+    if (!error && refreshed.session?.access_token) {
+      return request<T>(path, init, false);
+    }
+
+    // fallback refresh antigo (se ainda existir)
     const refreshToken = localStorage.getItem("auth_refresh_token");
     if (refreshToken) {
       try {
-        const refreshRes = await fetch(`${API_BASE}auth/refresh`, {
+        const refreshRes = await fetch(joinUrl(API_BASE, "auth/refresh"), {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ refresh_token: refreshToken }),
         });
-        
         if (refreshRes.ok) {
           const session = await refreshRes.json();
-          localStorage.setItem("auth_token", session.token);
-          if (session.refresh_token) localStorage.setItem("auth_refresh_token", session.refresh_token);
-          if (session.expires_at) localStorage.setItem("auth_expires_at", String(session.expires_at));
-          return request<T>(path, init, false);
+          const newToken = session.token ?? session.data?.token;
+          if (newToken) {
+            localStorage.setItem("auth_token", newToken);
+            return request<T>(path, init, false);
+          }
         }
       } catch {
-        // falha na renovação
+        // ignore
       }
     }
   }
 
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data?.error || "Erro na API");
+  if (!res.ok) {
+    throw new Error(
+      (data as { error?: string })?.error || `Erro na API (${res.status})`
+    );
+  }
   return data as T;
 }
 // ============ AUTENTICAÇÃO ============
@@ -471,18 +518,15 @@ export async function getPartnerImages(): Promise<ApiResponse<PartnerImage[]>> {
   return request<ApiResponse<PartnerImage[]>>("partner/images");
 }
 
-export async function uploadPartnerImages(files: File[]): Promise<ApiResponse<PartnerImage[]>> {
+export async function uploadPartnerImages(
+  files: File[]
+): Promise<ApiResponse<PartnerImage[]>> {
   const form = new FormData();
   files.forEach((file) => form.append("images", file));
-  const token = localStorage.getItem("auth_token");
-  const res = await fetch(`${API_BASE}partner/images`, {
+  return request<ApiResponse<PartnerImage[]>>("partner/images", {
     method: "POST",
-    headers: token ? { Authorization: `Bearer ${token}` } : {},
     body: form,
   });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data?.error || "Erro no upload");
-  return data;
 }
 
 export async function deletePartnerImage(id: string): Promise<ApiResponse<{ success: boolean }>> {
