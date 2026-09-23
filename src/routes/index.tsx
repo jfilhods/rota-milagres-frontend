@@ -37,7 +37,7 @@ export const Route = createFileRoute("/")({
     meta: [
       {
         title:
-          "Rota Milagres — guia de pousadas, restaurantes e passeios em Alagoas",
+          "Rota Milagres — Guia de pousadas, restaurantes e passeios na Rota Ecologica Milagres",
       },
       {
         name: "description",
@@ -46,7 +46,7 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:title",
-        content: "Rota Milagres — turismo na Costa dos Corais",
+        content: "Rota Milagres — Turismo",
       },
       {
         property: "og:description",

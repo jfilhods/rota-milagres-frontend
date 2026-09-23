@@ -86,58 +86,157 @@ export const Route = createRootRouteWithContext<RouterContext>()({
  head: () => ({
   meta: [
     { charSet: "utf-8" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { title: "Rota Milagres — Descrubra tudo na Rota dos Corais, Alagoas" },
+
+    {
+      name: "viewport",
+      content: "width=device-width, initial-scale=1",
+    },
+
+    {
+      title: "Rota Milagres — Descubra tudo na Rota dos Corais, Alagoas",
+    },
+
     {
       name: "description",
       content:
-        "Marketplace de turismo de São Miguel dos Milagres, Porto de Pedras, Japaratinga e Passo de Camaragibe.",
+        "Descubra pousadas, restaurantes, passeios e experiências na Rota Ecológica de Alagoas.",
     },
-    { name: "theme-color", content: "#0e7490" },
 
-    // Open Graph (Facebook, WhatsApp, LinkedIn, etc.)
-    { property: "og:title", content: "Rota Milagres" },
+    {
+      name: "theme-color",
+      content: "#0e7490",
+    },
+
+    // ============================================================
+    // OPEN GRAPH — WhatsApp, Facebook, Instagram, LinkedIn etc.
+    // ============================================================
+
+    {
+      property: "og:type",
+      content: "website",
+    },
+
+    {
+      property: "og:title",
+      content:
+        "Rota Milagres — Descubra tudo na Rota dos Corais, Alagoas",
+    },
+
     {
       property: "og:description",
       content:
-        "Pousadas, restaurantes, passeios e serviços da Rota Ecológica de Alagoas.",
+        "Descubra pousadas, restaurantes, passeios e experiências na Rota Ecológica de Alagoas.",
     },
-    { property: "og:type", content: "website" },
-    { property: "og:url", content: "https://rotamilagres.vercel.app" }, // ajuste para seu domínio
-    { property: "og:site_name", content: "Rota Milagres" },
-    { property: "og:locale", content: "pt_BR" },
+
+    {
+      property: "og:url",
+      content: "https://rotamilagres.vercel.app/",
+    },
+
+    {
+      property: "og:site_name",
+      content: "Rota Milagres",
+    },
+
+    {
+      property: "og:locale",
+      content: "pt_BR",
+    },
+
     {
       property: "og:image",
-      content: "https://rotamilagres.vercel.app/icon-rota-milagres.png", // ajuste o domínio
+      content: "https://rotamilagres.vercel.app/og-image.png",
     },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
-    { property: "og:image:alt", content: "Rota Milagres — Descubra tudo na Rota dos Corais, Alagoas" },
 
-    // Twitter / X
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:title", content: "Rota Milagres" },
+    {
+      property: "og:image:secure_url",
+      content: "https://rotamilagres.vercel.app/og-image.png",
+    },
+
+    {
+      property: "og:image:type",
+      content: "image/png",
+    },
+
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+
+    {
+      property: "og:image:height",
+      content: "630",
+    },
+
+    {
+      property: "og:image:alt",
+      content:
+        "Rota Milagres — Turismo, experiências e serviços em Alagoas",
+    },
+
+    // ============================================================
+    // TWITTER / X
+    // ============================================================
+
+    {
+      name: "twitter:card",
+      content: "summary_large_image",
+    },
+
+    {
+      name: "twitter:title",
+      content: "Rota Milagres",
+    },
+
     {
       name: "twitter:description",
       content:
-        "Pousadas, restaurantes, passeios e serviços da Rota Ecológica de Alagoas.",
+        "Descubra pousadas, restaurantes, passeios e experiências na Rota Ecológica de Alagoas.",
     },
+
     {
       name: "twitter:image",
-      content: "https://rotamilagres.vercel.app/icon-rota-milagres.png",
+      content: "https://rotamilagres.vercel.app/og-image.png",
     },
   ],
+
   links: [
-    { rel: "preconnect", href: "https://fonts.googleapis.com" },
-    { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+    // Google Fonts
+    {
+      rel: "preconnect",
+      href: "https://fonts.googleapis.com",
+    },
+
+    {
+      rel: "preconnect",
+      href: "https://fonts.gstatic.com",
+      crossOrigin: "anonymous",
+    },
+
     {
       rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap",
+      href:
+        "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap",
     },
-    { rel: "stylesheet", href: appCss },
-    { rel: "icon", href: "/icon-rota-milagres.png", type: "image/x-icon" },
-    { rel: "icon", type: "image/png", href: "/icon-rota-milagres.png" },
-    { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+
+    // CSS
+    {
+      rel: "stylesheet",
+      href: appCss,
+    },
+
+    // Favicon
+    {
+      rel: "icon",
+      type: "image/png",
+      href: "/icon-rota-milagres.png",
+    },
+
+    // Apple
+    {
+      rel: "apple-touch-icon",
+      href: "/apple-touch-icon.png",
+    },
   ],
 }),
   shellComponent: RootShell,
