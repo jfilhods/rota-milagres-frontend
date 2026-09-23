@@ -34,27 +34,17 @@ const cities = [
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    meta: [
-      {
-        title:
-          "Rota Milagres — Guia de pousadas, restaurantes e passeios na Rota Ecologica Milagres",
-      },
-      {
-        name: "description",
-        content:
-          "Encontre pousadas, restaurantes, passeios de jangada e buggy em São Miguel dos Milagres, Porto de Pedras, Japaratinga e Passo de Camaragibe. Fale direto no WhatsApp.",
-      },
-      {
-        property: "og:title",
-        content: "Rota Milagres — Turismo",
-      },
-      {
-        property: "og:description",
-        content:
-          "O marketplace da Rota Ecológica de Alagoas: pousadas, chalés, restaurantes, passeios e promoções.",
-      },
-    ],
-  }),
+  meta: [
+    {
+      title: "Rota Milagres — Turismo, experiências e serviços em Alagoas",
+    },
+    {
+      name: "description",
+      content:
+        "Descubra pousadas, restaurantes, passeios e experiências na Rota Ecológica de Alagoas.",
+    },
+  ],
+}),
   loader: async () => {
     const [featuredPartners, categories, apiPromos, events, tides] =
       await Promise.all([

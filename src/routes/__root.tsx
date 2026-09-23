@@ -83,7 +83,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
 // Criar a rota raiz com o contexto tipado
 export const Route = createRootRouteWithContext<RouterContext>()({
- head: () => ({
+head: () => ({
   meta: [
     { charSet: "utf-8" },
 
@@ -108,7 +108,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     },
 
     // ============================================================
-    // OPEN GRAPH — WhatsApp, Facebook, Instagram, LinkedIn etc.
+    // OPEN GRAPH
     // ============================================================
 
     {
@@ -201,7 +201,6 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   ],
 
   links: [
-    // Google Fonts
     {
       rel: "preconnect",
       href: "https://fonts.googleapis.com",
@@ -219,7 +218,6 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap",
     },
 
-    // CSS
     {
       rel: "stylesheet",
       href: appCss,
@@ -229,7 +227,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     {
       rel: "icon",
       type: "image/png",
-      href: "/icon-rota-milagres.png",
+      href: "/icon-rota-milagres-title.png",
     },
 
     // Apple
